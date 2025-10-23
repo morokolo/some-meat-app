@@ -6,12 +6,14 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
-  SafeAreaView,
 } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
 import { colors } from '../styles/colors';
 import { commonStyles } from '../styles/commonStyles';
 
 const RegistrationScreen = () => {
+  const navigation = useNavigation();
   const [formData, setFormData] = useState({
     fullName: 'John Doe',
     email: 'john.doe@email.com',
@@ -26,6 +28,16 @@ const RegistrationScreen = () => {
 
   const clearInput = (field: string) => {
     setFormData(prev => ({ ...prev, [field]: '' }));
+  };
+
+  const handleSignUp = () => {
+    // Navigate to main app tabs
+    navigation.navigate('MainTabs' as never);
+  };
+
+  const handleExploreApp = () => {
+    // Navigate to main app tabs
+    navigation.navigate('MainTabs' as never);
   };
 
   return (
@@ -132,7 +144,7 @@ const RegistrationScreen = () => {
 
         {/* Action Buttons */}
         <View style={styles.actionSection}>
-          <TouchableOpacity style={commonStyles.button}>
+          <TouchableOpacity style={commonStyles.button} onPress={handleSignUp}>
             <Text style={commonStyles.buttonText}>Sign up</Text>
           </TouchableOpacity>
 
@@ -149,7 +161,7 @@ const RegistrationScreen = () => {
             <View style={commonStyles.dividerLine} />
           </View>
 
-          <TouchableOpacity style={[commonStyles.button, commonStyles.secondaryButton]}>
+          <TouchableOpacity style={[commonStyles.button, commonStyles.secondaryButton]} onPress={handleExploreApp}>
             <Text style={[commonStyles.buttonText, commonStyles.secondaryButtonText]}>
               Explore our app
             </Text>
