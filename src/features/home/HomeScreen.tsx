@@ -8,8 +8,8 @@ import {
   FlatList,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { colors } from '../styles/colors';
-import { commonStyles } from '../styles/commonStyles';
+import { colors } from '../../styles/colors';
+import { commonStyles } from '../../styles/commonStyles';
 
 interface Product {
   id: string;

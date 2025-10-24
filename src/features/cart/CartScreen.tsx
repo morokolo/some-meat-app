@@ -7,9 +7,10 @@ import {
   ScrollView,
   TextInput,
 } from 'react-native';
+
+import { colors } from '../../styles/colors';
+import { commonStyles } from '../../styles/commonStyles';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { colors } from '../styles/colors';
-import { commonStyles } from '../styles/commonStyles';
 
 interface CartItem {
   id: string;

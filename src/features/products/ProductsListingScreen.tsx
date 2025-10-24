@@ -9,8 +9,8 @@ import {
   Image,
   FlatList,
 } from 'react-native';
-import { colors } from '../styles/colors';
-import { commonStyles } from '../styles/commonStyles';
+import { colors } from '../../styles/colors';
+import { commonStyles } from '../../styles/commonStyles';
 
 interface Product {
   id: string;

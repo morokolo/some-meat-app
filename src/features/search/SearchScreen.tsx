@@ -5,17 +5,17 @@ import {
   StyleSheet,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { colors } from '../styles/colors';
-import { commonStyles } from '../styles/commonStyles';
+import { colors } from '../../styles/colors';
+import { commonStyles } from '../../styles/commonStyles';
 
-const FavouritesScreen = () => {
+const SearchScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
-        <Text style={styles.title}>Favourites</Text>
-        <Text style={styles.subtitle}>Your saved items</Text>
+        <Text style={styles.title}>Search</Text>
+        <Text style={styles.subtitle}>Find your products</Text>
         <Text style={styles.description}>
-          Items you've marked as favourites will appear here.
+          Search for specific products or browse by category.
         </Text>
       </View>
     </SafeAreaView>
@@ -53,4 +53,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FavouritesScreen;
+export default SearchScreen;

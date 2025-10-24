@@ -5,17 +5,17 @@ import {
   StyleSheet,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { colors } from '../styles/colors';
-import { commonStyles } from '../styles/commonStyles';
+import { colors } from '../../styles/colors';
+import { commonStyles } from '../../styles/commonStyles';
 
-const SearchScreen = () => {
+const ProfileScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
-        <Text style={styles.title}>Search</Text>
-        <Text style={styles.subtitle}>Find your products</Text>
+        <Text style={styles.title}>Profile</Text>
+        <Text style={styles.subtitle}>Your account</Text>
         <Text style={styles.description}>
-          Search for specific products or browse by category.
+          Manage your account settings and preferences.
         </Text>
       </View>
     </SafeAreaView>
@@ -53,4 +53,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default SearchScreen;
+export default ProfileScreen;

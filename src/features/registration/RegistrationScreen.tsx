@@ -9,8 +9,8 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
-import { colors } from '../styles/colors';
-import { commonStyles } from '../styles/commonStyles';
+import { colors } from '../../styles/colors';
+import { commonStyles } from '../../styles/commonStyles';
 
 const RegistrationScreen = () => {
   const navigation = useNavigation();

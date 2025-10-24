@@ -2,7 +2,7 @@ import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import RegistrationScreen from '../screens/RegistrationScreen';
+import RegistrationScreen from '../features/registration/RegistrationScreen';
 import TabNavigator from './TabNavigator';
 
 const Stack = createStackNavigator();
