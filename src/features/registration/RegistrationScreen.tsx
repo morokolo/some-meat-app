@@ -68,8 +68,8 @@ const RegistrationScreen = () => {
               <TextInput
                 style={[commonStyles.input, styles.input]}
                 value={formData.fullName}
-                onChangeText={(value) => handleInputChange('fullName', value)}
-                placeholder="Enter your full name"
+                onChangeText={value => handleInputChange('fullName', value)}
+                placeholder='Enter your full name'
               />
               <TouchableOpacity
                 style={styles.clearButton}
@@ -87,10 +87,10 @@ const RegistrationScreen = () => {
               <TextInput
                 style={[commonStyles.input, styles.input]}
                 value={formData.email}
-                onChangeText={(value) => handleInputChange('email', value)}
-                placeholder="Enter your email"
-                keyboardType="email-address"
-                autoCapitalize="none"
+                onChangeText={value => handleInputChange('email', value)}
+                placeholder='Enter your email'
+                keyboardType='email-address'
+                autoCapitalize='none'
               />
               <TouchableOpacity
                 style={styles.clearButton}
@@ -108,9 +108,9 @@ const RegistrationScreen = () => {
               <TextInput
                 style={[commonStyles.input, styles.input]}
                 value={formData.mobileNumber}
-                onChangeText={(value) => handleInputChange('mobileNumber', value)}
-                placeholder="Enter your mobile number"
-                keyboardType="phone-pad"
+                onChangeText={value => handleInputChange('mobileNumber', value)}
+                placeholder='Enter your mobile number'
+                keyboardType='phone-pad'
               />
               <TouchableOpacity
                 style={styles.clearButton}
@@ -128,8 +128,8 @@ const RegistrationScreen = () => {
               <TextInput
                 style={[commonStyles.input, styles.input]}
                 value={formData.password}
-                onChangeText={(value) => handleInputChange('password', value)}
-                placeholder="Create a password"
+                onChangeText={value => handleInputChange('password', value)}
+                placeholder='Create a password'
                 secureTextEntry={!showPassword}
               />
               <TouchableOpacity
@@ -161,8 +161,16 @@ const RegistrationScreen = () => {
             <View style={commonStyles.dividerLine} />
           </View>
 
-          <TouchableOpacity style={[commonStyles.button, commonStyles.secondaryButton]} onPress={handleExploreApp}>
-            <Text style={[commonStyles.buttonText, commonStyles.secondaryButtonText]}>
+          <TouchableOpacity
+            style={[commonStyles.button, commonStyles.secondaryButton]}
+            onPress={handleExploreApp}
+          >
+            <Text
+              style={[
+                commonStyles.buttonText,
+                commonStyles.secondaryButtonText,
+              ]}
+            >
               Explore our app
             </Text>
           </TouchableOpacity>

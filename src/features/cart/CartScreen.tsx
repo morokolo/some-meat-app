@@ -21,7 +21,7 @@ interface CartItem {
 
 const CartScreen = () => {
   const [promoCode, setPromoCode] = useState('');
-  
+
   const cartItems: CartItem[] = [
     {
       id: '1',
@@ -56,11 +56,11 @@ const CartScreen = () => {
           <Text style={styles.placeholderText}>Item Image</Text>
         </View>
       </View>
-      
+
       <View style={styles.itemDetails}>
         <Text style={styles.itemName}>{item.name}</Text>
         <Text style={styles.itemPrice}>{item.price}</Text>
-        
+
         <View style={styles.quantityControls}>
           <TouchableOpacity
             style={styles.quantityButton}
@@ -68,7 +68,7 @@ const CartScreen = () => {
           >
             <Text style={styles.quantityButtonText}>Remove</Text>
           </TouchableOpacity>
-          
+
           <View style={styles.quantitySelector}>
             <TouchableOpacity
               style={styles.quantityButton}
@@ -76,9 +76,9 @@ const CartScreen = () => {
             >
               <Text style={styles.quantityButtonText}>-</Text>
             </TouchableOpacity>
-            
+
             <Text style={styles.quantityText}>{item.quantity}</Text>
-            
+
             <TouchableOpacity
               style={styles.quantityButton}
               onPress={() => updateQuantity(item.id, 1)}
@@ -115,7 +115,7 @@ const CartScreen = () => {
         <View style={styles.promoSection}>
           <TextInput
             style={styles.promoInput}
-            placeholder="Add your promo code"
+            placeholder='Add your promo code'
             value={promoCode}
             onChangeText={setPromoCode}
             placeholderTextColor={colors.placeholder}
@@ -131,12 +131,12 @@ const CartScreen = () => {
             <Text style={styles.summaryLabel}>Sub total</Text>
             <Text style={styles.summaryValue}>R 289.00</Text>
           </View>
-          
+
           <View style={styles.summaryRow}>
             <Text style={styles.summaryLabel}>Delivery</Text>
             <Text style={styles.summaryValue}>R 28.00</Text>
           </View>
-          
+
           <View style={[styles.summaryRow, styles.totalRow]}>
             <Text style={styles.totalLabel}>Total</Text>
             <Text style={styles.totalValue}>R 317.00</Text>

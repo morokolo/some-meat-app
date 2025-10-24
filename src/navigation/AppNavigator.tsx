@@ -12,13 +12,13 @@ const AppNavigator = () => {
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="Registration"
+          initialRouteName='Registration'
           screenOptions={{
             headerShown: false,
           }}
         >
-          <Stack.Screen name="Registration" component={RegistrationScreen} />
-          <Stack.Screen name="MainTabs" component={TabNavigator} />
+          <Stack.Screen name='Registration' component={RegistrationScreen} />
+          <Stack.Screen name='MainTabs' component={TabNavigator} />
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>

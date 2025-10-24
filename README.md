@@ -5,6 +5,7 @@ This React Native Expo app replicates the UI screens for a grocery shopping app 
 ## App Flow
 
 ### 1. Registration Screen (Initial)
+
 - Welcome message with "Pantry by Marble" branding
 - Form fields for full name, email, mobile number, and password
 - Pre-filled sample data (John Doe)
@@ -13,9 +14,11 @@ This React Native Expo app replicates the UI screens for a grocery shopping app 
 - **Sign up** and **Explore our app** buttons that navigate to the main app
 
 ### 2. Main App (Tab Navigation)
+
 After registration, users are taken to the main app with 5 tabs:
 
 #### Home Tab
+
 - "Meat" category title
 - Horizontal category tabs (All, Beef, Fish, Pork, Poultry)
 - "Based on your selection" and "Our products" headers
@@ -25,14 +28,17 @@ After registration, users are taken to the main app with 5 tabs:
 - Filter button in header
 
 #### Favourites Tab
+
 - Placeholder screen for saved items
 - "Your saved items" section
 
 #### Search Tab
+
 - Placeholder screen for product search
 - "Find your products" functionality
 
 #### Cart Tab
+
 - Cart title
 - List of cart items with placeholder images
 - Quantity controls (Remove, -, +)
@@ -41,6 +47,7 @@ After registration, users are taken to the main app with 5 tabs:
 - Checkout button
 
 #### Profile Tab
+
 - Placeholder screen for user account
 - "Your account" management
 
@@ -67,6 +74,7 @@ After registration, users are taken to the main app with 5 tabs:
 ## Getting Started
 
 1. Install dependencies:
+
    ```bash
    yarn install
    # or
@@ -74,6 +82,7 @@ After registration, users are taken to the main app with 5 tabs:
    ```
 
 2. Start the development server:
+
    ```bash
    yarn start
    # or

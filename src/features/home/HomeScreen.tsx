@@ -20,9 +20,9 @@ interface Product {
 
 const HomeScreen = () => {
   const [selectedCategory, setSelectedCategory] = useState('Beef');
-  
+
   const categories = ['All', 'Beef', 'Fish', 'Pork', 'Poultry'];
-  
+
   const products: Product[] = [
     {
       id: '1',
@@ -99,7 +99,7 @@ const HomeScreen = () => {
         {/* Category Tabs */}
         <View style={styles.categoryTabs}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {categories.map((category) => (
+            {categories.map(category => (
               <TouchableOpacity
                 key={category}
                 style={[
@@ -111,7 +111,8 @@ const HomeScreen = () => {
                 <Text
                   style={[
                     styles.categoryTabText,
-                    selectedCategory === category && styles.categoryTabTextActive,
+                    selectedCategory === category &&
+                      styles.categoryTabTextActive,
                   ]}
                 >
                   {category}
@@ -132,7 +133,7 @@ const HomeScreen = () => {
           <FlatList
             data={products}
             renderItem={renderProduct}
-            keyExtractor={(item) => item.id}
+            keyExtractor={item => item.id}
             numColumns={2}
             columnWrapperStyle={styles.productRow}
             scrollEnabled={false}

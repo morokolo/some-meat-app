@@ -6,7 +6,6 @@ import {
   StyleSheet,
   ScrollView,
   SafeAreaView,
-  Image,
   FlatList,
 } from 'react-native';
 import { colors } from '../../styles/colors';
@@ -21,9 +20,9 @@ interface Product {
 
 const ProductsListingScreen = () => {
   const [selectedCategory, setSelectedCategory] = useState('Beef');
-  
+
   const categories = ['All', 'Beef', 'Fish', 'Pork', 'Poultry'];
-  
+
   const products: Product[] = [
     {
       id: '1',
@@ -100,7 +99,7 @@ const ProductsListingScreen = () => {
         {/* Category Tabs */}
         <View style={styles.categoryTabs}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {categories.map((category) => (
+            {categories.map(category => (
               <TouchableOpacity
                 key={category}
                 style={[
@@ -112,7 +111,8 @@ const ProductsListingScreen = () => {
                 <Text
                   style={[
                     styles.categoryTabText,
-                    selectedCategory === category && styles.categoryTabTextActive,
+                    selectedCategory === category &&
+                      styles.categoryTabTextActive,
                   ]}
                 >
                   {category}
@@ -133,7 +133,7 @@ const ProductsListingScreen = () => {
           <FlatList
             data={products}
             renderItem={renderProduct}
-            keyExtractor={(item) => item.id}
+            keyExtractor={item => item.id}
             numColumns={2}
             columnWrapperStyle={styles.productRow}
             scrollEnabled={false}

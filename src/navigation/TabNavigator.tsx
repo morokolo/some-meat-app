@@ -35,7 +35,7 @@ const TabNavigator = () => {
       }}
     >
       <Tab.Screen
-        name="Home"
+        name='Home'
         component={HomeScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
@@ -44,7 +44,7 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Favourites"
+        name='Favourites'
         component={FavouritesScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
@@ -53,7 +53,7 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Search"
+        name='Search'
         component={SearchScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
@@ -62,7 +62,7 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Cart"
+        name='Cart'
         component={CartScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
@@ -71,7 +71,7 @@ const TabNavigator = () => {
         }}
       />
       <Tab.Screen
-        name="Profile"
+        name='Profile'
         component={ProfileScreen}
         options={{
           tabBarIcon: ({ color, size }) => (

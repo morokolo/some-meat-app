@@ -5,7 +5,7 @@ import AppNavigator from '@navigation/AppNavigator';
 export default function App() {
   return (
     <>
-      <StatusBar style="dark" />
+      <StatusBar style='dark' />
       <AppNavigator />
     </>
   );
