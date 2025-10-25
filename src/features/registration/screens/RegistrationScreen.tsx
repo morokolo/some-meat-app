@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
   Text,
@@ -6,21 +6,39 @@ import {
   TouchableOpacity,
   StyleSheet,
   ScrollView,
+  ActivityIndicator,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { colors } from '@styles/colors';
 import { commonStyles } from '@styles/commonStyles';
+import { useAppDispatch, useAppSelector } from '@/stores/hooks';
+import { loginThunk } from '@/stores/features/registration/registrationSlice';
+import { fetchAllProducts } from '@/stores/features/products/productsSlice';
 
 const RegistrationScreen = () => {
   const navigation = useNavigation();
+  const dispatch = useAppDispatch();
+  const { loading, error, token } = useAppSelector(state => state.registration);
   const [formData, setFormData] = useState({
-    fullName: 'John Doe',
+    fullName: 'mor_2314',
     email: 'john.doe@email.com',
     mobileNumber: '+27 | 72 815 4332',
-    password: '********',
+    password: '83r5^_',
   });
   const [showPassword, setShowPassword] = useState(false);
+  const [showError, setShowError] = useState(false);
+
+  useEffect(() => {
+    if (token && !loading) {
+      dispatch(fetchAllProducts());
+      navigation.navigate('MainTabs' as never); // or the actual route for products page
+    }
+  }, [token, loading, dispatch, navigation]);
+
+  useEffect(() => {
+    if (error) setShowError(true);
+  }, [error]);
 
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
@@ -31,12 +49,11 @@ const RegistrationScreen = () => {
   };
 
   const handleSignUp = () => {
-    // Navigate to main app tabs
-    navigation.navigate('MainTabs' as never);
+    setShowError(false);
+    dispatch(loginThunk({username: formData.fullName, password: formData.password}));
   };
 
   const handleExploreApp = () => {
-    // Navigate to main app tabs
     navigation.navigate('MainTabs' as never);
   };
 
@@ -144,9 +161,17 @@ const RegistrationScreen = () => {
 
         {/* Action Buttons */}
         <View style={styles.actionSection}>
-          <TouchableOpacity style={commonStyles.button} onPress={handleSignUp}>
-            <Text style={commonStyles.buttonText}>Sign up</Text>
+          <TouchableOpacity style={commonStyles.button} onPress={handleSignUp} disabled={loading}>
+            {loading ? (
+              <ActivityIndicator color={colors.white} style={{ marginVertical: 4 }} />
+            ) : (
+              <Text style={commonStyles.buttonText}>Sign up</Text>
+            )}
           </TouchableOpacity>
+
+          {showError && error && (
+            <Text style={{ color: colors.error, marginTop: 8, textAlign: 'center' }}>{error}</Text>
+          )}
 
           <View style={styles.loginSection}>
             <Text style={styles.loginText}>Have an account? </Text>
@@ -164,6 +189,7 @@ const RegistrationScreen = () => {
           <TouchableOpacity
             style={[commonStyles.button, commonStyles.secondaryButton]}
             onPress={handleExploreApp}
+            disabled={loading}
           >
             <Text
               style={[

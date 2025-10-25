@@ -1,5 +1,6 @@
 import React from 'react';
-import { View, Text, Button, SafeAreaView, StyleSheet } from 'react-native';
+import { View, Text, Button, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAppDispatch, useAppSelector } from '@stores/hooks';
 import { increment, decrement } from '@features/counter/redux/reducer';
 
@@ -27,14 +28,19 @@ export function Counter() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignSelf: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f8f8f8',
   },
   contentContainer: {
     alignItems: 'center',
     flexDirection: 'row',
+    padding: 20,
   },
   text: {
-    marginHorizontal: 10,
+    marginHorizontal: 20,
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#333',
   },
 });

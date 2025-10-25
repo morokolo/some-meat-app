@@ -7,8 +7,9 @@ import ProfileScreen from '@features/profile/ProfileScreen';
 import HomeScreen from '@features/home/HomeScreen';
 import FavouritesScreen from '@features/favourites/FavouritesScreen';
 import SearchScreen from '@features/search/SearchScreen';
-import CartScreen from '@features/cart/CartScreen';
+import CartScreen from '@/features/cart/screens/CartScreen';
 import { colors } from '@styles/colors';
+import ProductsListingScreen from '@/features/products/ProductsListingScreen';
 
 const Tab = createBottomTabNavigator();
 
@@ -36,7 +37,7 @@ const TabNavigator = () => {
     >
       <Tab.Screen
         name='Home'
-        component={HomeScreen}
+        component={ProductsListingScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Text style={{ fontSize: size || 20, color }}>H</Text>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -7,73 +7,72 @@ import {
   ScrollView,
   SafeAreaView,
   FlatList,
+  ActivityIndicator,
+  Image,
 } from 'react-native';
 import { colors } from '../../styles/colors';
 import { commonStyles } from '../../styles/commonStyles';
-
-interface Product {
-  id: string;
-  name: string;
-  price: string;
-  image: string;
-}
+import { useAppDispatch, useAppSelector } from '@/stores/hooks';
+import { fetchAllProducts } from '@/stores/features/products/productsSlice';
+import { addItemToCart } from '@/stores/features/cart/cartSlice';
+import { Product, ProductCategory } from '@/types';
 
 const ProductsListingScreen = () => {
-  const [selectedCategory, setSelectedCategory] = useState('Beef');
-
-  const categories = ['All', 'Beef', 'Fish', 'Pork', 'Poultry'];
-
-  const products: Product[] = [
-    {
-      id: '1',
-      name: 'Wagyu steak medalions',
-      price: 'R XXX.XX',
-      image: 'placeholder',
-    },
-    {
-      id: '2',
-      name: 'Rump steak',
-      price: 'R XXX.XX',
-      image: 'placeholder',
-    },
-    {
-      id: '3',
-      name: 'Wagyu steak medalions',
-      price: 'R XXX.XX',
-      image: 'placeholder',
-    },
-    {
-      id: '4',
-      name: 'Rump steak',
-      price: 'R XXX.XX',
-      image: 'placeholder',
-    },
-    {
-      id: '5',
-      name: 'Wagyu steak medalions',
-      price: 'R XXX.XX',
-      image: 'placeholder',
-    },
-    {
-      id: '6',
-      name: 'Rump steak',
-      price: 'R XXX.XX',
-      image: 'placeholder',
-    },
+  const [selectedCategory, setSelectedCategory] = useState(ProductCategory.ALL);
+  const categories = [
+    ProductCategory.ALL, 
+    ProductCategory.ELECTRONICS, 
+    ProductCategory.JEWELERY, 
+    ProductCategory.MENS_CLOTHING, 
+    ProductCategory.WOMENS_CLOTHING
   ];
+  const dispatch = useAppDispatch();
+  const { items: products, loading, error } = useAppSelector(state => state.products);
+  const { items: cartItems } = useAppSelector(state => state.cart);
+
+  useEffect(() => {
+    if (!products || !Array.isArray(products) || products.length === 0) {
+      dispatch(fetchAllProducts());
+    }
+  }, [dispatch]);
+
+  // Debug log
+  console.log('Products from state:', products);
+
+  const filteredProducts =
+    selectedCategory === ProductCategory.ALL
+      ? products
+      : products.filter((prod: Product) => prod.category === selectedCategory);
+
+  const handleAddToCart = (product: Product) => {
+    dispatch(addItemToCart(product));
+  };
 
   const renderProduct = ({ item }: { item: Product }) => (
     <View style={styles.productCard}>
       <View style={styles.productImageContainer}>
-        <View style={styles.productImagePlaceholder}>
-          <Text style={styles.placeholderText}>Product Image</Text>
-        </View>
-        <TouchableOpacity style={styles.cartIcon}>
+        {item.image ? (
+          <Image
+            source={{ uri: item.image }}
+            style={styles.productImageReal}
+            resizeMode="contain"
+          />
+        ) : (
+          <View style={styles.productImagePlaceholder}>
+            <Text style={styles.placeholderText}>No Image</Text>
+          </View>
+        )}
+        <TouchableOpacity 
+          style={styles.cartIcon}
+          onPress={() => handleAddToCart(item)}
+        >
           <Text style={styles.cartIconText}>🛒</Text>
         </TouchableOpacity>
       </View>
-      <Text style={styles.productName}>{item.name}</Text>
-      <Text style={styles.productPrice}>{item.price}</Text>
+      <Text style={styles.productName} numberOfLines={1}>
+        {item.title}
+      </Text>
+      <Text style={styles.productPrice}>${item.price}</Text>
     </View>
   );
 
@@ -93,7 +92,7 @@ const ProductsListingScreen = () => {
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         {/* Category Title */}
         <View style={styles.categorySection}>
-          <Text style={styles.categoryTitle}>Meat</Text>
+          <Text style={styles.categoryTitle}>Shop</Text>
         </View>
 
         {/* Category Tabs */}
@@ -111,8 +110,7 @@ const ProductsListingScreen = () => {
                 <Text
                   style={[
                     styles.categoryTabText,
-                    selectedCategory === category &&
-                      styles.categoryTabTextActive,
+                    selectedCategory === category && styles.categoryTabTextActive,
                   ]}
                 >
                   {category}
@@ -126,19 +124,29 @@ const ProductsListingScreen = () => {
         <View style={styles.productSectionHeader}>
           <Text style={styles.basedOnSelection}>Based on your selection</Text>
           <Text style={styles.ourProducts}>Our products</Text>
+          <Text style={{ fontSize: 12, color: colors.textLight, marginTop: 4 }}>
+            Showing {filteredProducts?.length ?? 0} item(s)
+          </Text>
         </View>
 
-        {/* Product Grid */}
+        {/* Loading, Error, Products Display */}
         <View style={styles.productGrid}>
-          <FlatList
-            data={products}
-            renderItem={renderProduct}
-            keyExtractor={item => item.id}
-            numColumns={2}
-            columnWrapperStyle={styles.productRow}
-            scrollEnabled={false}
-            showsVerticalScrollIndicator={false}
-          />
+          {loading ? (
+            <ActivityIndicator size="large" color={colors.primary} style={{ margin: 40 }} />
+          ) : error ? (
+            <Text style={{ color: colors.error, textAlign: 'center', margin: 40 }}>{error}</Text>
+          ) : (
+            <FlatList
+              data={filteredProducts}
+              renderItem={renderProduct}
+              keyExtractor={item => item.id?.toString()}
+              numColumns={2}
+              columnWrapperStyle={styles.productRow}
+              scrollEnabled={false}
+              showsVerticalScrollIndicator={false}
+              ListEmptyComponent={<Text style={{ color: colors.textLight, textAlign: 'center', margin: 40 }}>No products found.</Text>}
+            />
+          )}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -194,6 +202,7 @@ const styles = StyleSheet.create({
   },
   productSectionHeader: {
     marginBottom: 24,
+    alignItems: 'flex-start',
   },
   basedOnSelection: {
     fontSize: 14,
@@ -222,12 +231,19 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   productImagePlaceholder: {
-    height: 150,
+    height: 120,
     backgroundColor: colors.gray,
     borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 8,
+  },
+  productImageReal: {
+    height: 120,
+    backgroundColor: colors.white,
+    borderRadius: 8,
+    marginBottom: 8,
+    width: '100%',
   },
   placeholderText: {
     fontSize: 12,

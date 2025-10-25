@@ -10,13 +10,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from '@styles/colors';
 import { commonStyles } from '@styles/commonStyles';
-
-interface Product {
-  id: string;
-  name: string;
-  price: string;
-  image: string;
-}
+import { Product } from '@/types';
 
 const HomeScreen = () => {
   const [selectedCategory, setSelectedCategory] = useState('Beef');
@@ -25,40 +19,58 @@ const HomeScreen = () => {
 
   const products: Product[] = [
     {
-      id: '1',
-      name: 'Wagyu steak medalions',
-      price: 'R XXX.XX',
-      image: 'placeholder',
+      id: 1,
+      title: 'Wagyu steak medalions',
+      price: 299.99,
+      description: 'Premium wagyu steak medalions',
+      category: 'meat',
+      image: 'https://via.placeholder.com/150',
+      rating: { rate: 4.5, count: 120 },
     },
     {
-      id: '2',
-      name: 'Rump steak',
-      price: 'R XXX.XX',
-      image: 'placeholder',
+      id: 2,
+      title: 'Rump steak',
+      price: 199.99,
+      description: 'Fresh rump steak',
+      category: 'meat',
+      image: 'https://via.placeholder.com/150',
+      rating: { rate: 4.2, count: 85 },
     },
     {
-      id: '3',
-      name: 'Wagyu steak medalions',
-      price: 'R XXX.XX',
-      image: 'placeholder',
+      id: 3,
+      title: 'Wagyu steak medalions',
+      price: 299.99,
+      description: 'Premium wagyu steak medalions',
+      category: 'meat',
+      image: 'https://via.placeholder.com/150',
+      rating: { rate: 4.5, count: 120 },
     },
     {
-      id: '4',
-      name: 'Rump steak',
-      price: 'R XXX.XX',
-      image: 'placeholder',
+      id: 4,
+      title: 'Rump steak',
+      price: 199.99,
+      description: 'Fresh rump steak',
+      category: 'meat',
+      image: 'https://via.placeholder.com/150',
+      rating: { rate: 4.2, count: 85 },
     },
     {
-      id: '5',
-      name: 'Wagyu steak medalions',
-      price: 'R XXX.XX',
-      image: 'placeholder',
+      id: 5,
+      title: 'Wagyu steak medalions',
+      price: 299.99,
+      description: 'Premium wagyu steak medalions',
+      category: 'meat',
+      image: 'https://via.placeholder.com/150',
+      rating: { rate: 4.5, count: 120 },
     },
     {
-      id: '6',
-      name: 'Rump steak',
-      price: 'R XXX.XX',
-      image: 'placeholder',
+      id: 6,
+      title: 'Rump steak',
+      price: 199.99,
+      description: 'Fresh rump steak',
+      category: 'meat',
+      image: 'https://via.placeholder.com/150',
+      rating: { rate: 4.2, count: 85 },
     },
   ];
 
@@ -72,8 +84,8 @@ const HomeScreen = () => {
           <Text style={styles.cartIconText}>🛒</Text>
         </TouchableOpacity>
       </View>
-      <Text style={styles.productName}>{item.name}</Text>
-      <Text style={styles.productPrice}>{item.price}</Text>
+      <Text style={styles.productName}>{item.title}</Text>
+      <Text style={styles.productPrice}>${item.price}</Text>
     </View>
   );
 
@@ -133,7 +145,7 @@ const HomeScreen = () => {
           <FlatList
             data={products}
             renderItem={renderProduct}
-            keyExtractor={item => item.id}
+            keyExtractor={item => item.id.toString()}
             numColumns={2}
             columnWrapperStyle={styles.productRow}
             scrollEnabled={false}

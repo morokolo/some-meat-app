@@ -6,73 +6,68 @@ import {
   StyleSheet,
   ScrollView,
   TextInput,
+  Image,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from '@styles/colors';
 import { commonStyles } from '@styles/commonStyles';
-
-interface CartItem {
-  id: string;
-  name: string;
-  price: string;
-  quantity: number;
-  image: string;
-}
+import { useAppDispatch, useAppSelector } from '@/stores/hooks';
+import { 
+  removeItemFromCart, 
+  incrementQuantity, 
+  decrementQuantity 
+} from '@/stores/features/cart/cartSlice';
+import { CartItem } from '@/types';
 
 const CartScreen = () => {
   const [promoCode, setPromoCode] = useState('');
+  const dispatch = useAppDispatch();
+  const { items: cartItems, total } = useAppSelector(state => state.cart);
 
-  const cartItems: CartItem[] = [
-    {
-      id: '1',
-      name: '1 WHOLE FREE RANGE CHICKEN',
-      price: 'R289.00',
-      quantity: 1,
-      image: 'placeholder',
-    },
-    {
-      id: '2',
-      name: '1 WHOLE FREE RANGE CHICKEN',
-      price: 'R289.00',
-      quantity: 1,
-      image: 'placeholder',
-    },
-  ];
-
-  const updateQuantity = (id: string, change: number) => {
-    // In a real app, this would update the cart state
-    console.log(`Update quantity for item ${id} by ${change}`);
+  const handleIncrementQuantity = (id: number) => {
+    dispatch(incrementQuantity(id));
   };
 
-  const removeItem = (id: string) => {
-    // In a real app, this would remove the item from cart
-    console.log(`Remove item ${id}`);
+  const handleDecrementQuantity = (id: number) => {
+    dispatch(decrementQuantity(id));
+  };
+
+  const handleRemoveItem = (id: number) => {
+    dispatch(removeItemFromCart(id));
   };
 
   const renderCartItem = (item: CartItem) => (
     <View key={item.id} style={styles.cartItem}>
       <View style={styles.itemImageContainer}>
-        <View style={styles.itemImagePlaceholder}>
-          <Text style={styles.placeholderText}>Item Image</Text>
-        </View>
+        {item.image ? (
+          <Image
+            source={{ uri: item.image }}
+            style={styles.itemImage}
+            resizeMode="contain"
+          />
+        ) : (
+          <View style={styles.itemImagePlaceholder}>
+            <Text style={styles.placeholderText}>No Image</Text>
+          </View>
+        )}
       </View>
 
       <View style={styles.itemDetails}>
-        <Text style={styles.itemName}>{item.name}</Text>
-        <Text style={styles.itemPrice}>{item.price}</Text>
+        <Text style={styles.itemName}>{item.title}</Text>
+        <Text style={styles.itemPrice}>${item.price}</Text>
 
         <View style={styles.quantityControls}>
           <TouchableOpacity
-            style={styles.quantityButton}
-            onPress={() => removeItem(item.id)}
+            style={styles.removeButton}
+            onPress={() => handleRemoveItem(item.id)}
           >
-            <Text style={styles.quantityButtonText}>Remove</Text>
+            <Text style={styles.removeButtonText}>Remove</Text>
           </TouchableOpacity>
 
           <View style={styles.quantitySelector}>
             <TouchableOpacity
               style={styles.quantityButton}
-              onPress={() => updateQuantity(item.id, -1)}
+              onPress={() => handleDecrementQuantity(item.id)}
             >
               <Text style={styles.quantityButtonText}>-</Text>
             </TouchableOpacity>
@@ -81,7 +76,7 @@ const CartScreen = () => {
 
             <TouchableOpacity
               style={styles.quantityButton}
-              onPress={() => updateQuantity(item.id, 1)}
+              onPress={() => handleIncrementQuantity(item.id)}
             >
               <Text style={styles.quantityButtonText}>+</Text>
             </TouchableOpacity>
@@ -108,7 +103,14 @@ const CartScreen = () => {
 
         {/* Cart Items */}
         <View style={styles.cartItemsSection}>
-          {cartItems.map(renderCartItem)}
+          {cartItems.length === 0 ? (
+            <View style={styles.emptyCart}>
+              <Text style={styles.emptyCartText}>Your cart is empty</Text>
+              <Text style={styles.emptyCartSubtext}>Add some items to get started!</Text>
+            </View>
+          ) : (
+            cartItems.map(renderCartItem)
+          )}
         </View>
 
         {/* Promo Code Section */}
@@ -129,17 +131,17 @@ const CartScreen = () => {
         <View style={styles.orderSummary}>
           <View style={styles.summaryRow}>
             <Text style={styles.summaryLabel}>Sub total</Text>
-            <Text style={styles.summaryValue}>R 289.00</Text>
+            <Text style={styles.summaryValue}>${total.toFixed(2)}</Text>
           </View>
 
           <View style={styles.summaryRow}>
             <Text style={styles.summaryLabel}>Delivery</Text>
-            <Text style={styles.summaryValue}>R 28.00</Text>
+            <Text style={styles.summaryValue}>$28.00</Text>
           </View>
 
           <View style={[styles.summaryRow, styles.totalRow]}>
             <Text style={styles.totalLabel}>Total</Text>
-            <Text style={styles.totalValue}>R 317.00</Text>
+            <Text style={styles.totalValue}>${(total + 28).toFixed(2)}</Text>
           </View>
         </View>
       </ScrollView>
@@ -186,6 +188,11 @@ const styles = StyleSheet.create({
   itemImageContainer: {
     marginRight: 16,
   },
+  itemImage: {
+    width: 80,
+    height: 80,
+    borderRadius: 8,
+  },
   itemImagePlaceholder: {
     width: 80,
     height: 80,
@@ -218,6 +225,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+  },
+  removeButton: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 4,
+    backgroundColor: colors.error || '#ff4444',
+  },
+  removeButtonText: {
+    fontSize: 14,
+    fontWeight: '500',
+    color: colors.white,
   },
   quantityButton: {
     paddingHorizontal: 12,
@@ -317,6 +335,21 @@ const styles = StyleSheet.create({
     color: colors.white,
     fontSize: 18,
     fontWeight: '600',
+  },
+  emptyCart: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 60,
+  },
+  emptyCartText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: colors.text,
+    marginBottom: 8,
+  },
+  emptyCartSubtext: {
+    fontSize: 14,
+    color: colors.textLight,
   },
 });
 
