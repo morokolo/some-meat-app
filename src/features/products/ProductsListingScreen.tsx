@@ -1,15 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  ScrollView,
-  SafeAreaView,
-  FlatList,
-  ActivityIndicator,
-  Image,
-} from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, ScrollView, SafeAreaView, ActivityIndicator } from 'react-native';
+import { FlashList } from '@shopify/flash-list';
 import { colors } from '../../styles/colors';
 import { commonStyles } from '../../styles/commonStyles';
 import AppHeader from '@/components/header/AppHeader';
@@ -18,6 +9,7 @@ import { fetchAllProducts, fetchMealCategories, fetchMealsByCategory, fetchAllMe
 import { addItemToCart } from '@/stores/features/cart/cartSlice';
 import { Product, ProductCategory } from '@/types';
 import OliveDivider from '@/components/divider/OliveDivider';
+import ProductCard from '@/components/product/ProductCard';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 const ProductsListingScreen = () => {
@@ -76,39 +68,7 @@ const ProductsListingScreen = () => {
   };
 
   const renderProduct = ({ item }: { item: Product }) => (
-    <View style={styles.productCard}>
-      <View style={styles.productImageContainer}>
-        {item.image ? (
-          <Image
-            source={{ uri: item.image }}
-            style={styles.productImageReal}
-            resizeMode="cover"
-          />
-        ) : (
-          <View style={styles.productImagePlaceholder}>
-            <Text style={styles.placeholderText}>No Image</Text>
-          </View>
-        )}
-        
-      </View>
-      <View style={styles.productInfoRow}>
-        <View style={styles.productTitlePriceRow}>
-          <Text style={styles.productName} numberOfLines={1}>
-            {item.title}
-          </Text>
-         
-        </View>
-       
-        </View>
-        <View style={styles.sideBySideRow}>
-          <View>
-          <Text style={styles.productPrice}>R XXX.XX</Text>
-          </View>
-          <TouchableOpacity onPress={() => handleAddToCart(item)}>
-            <Text style={styles.cartIconText}>🛒</Text>
-          </TouchableOpacity>
-        </View>
-    </View>
+    <ProductCard product={item} onAddToCart={handleAddToCart} stylesRef={styles} />
   );
 
   return (
@@ -161,12 +121,11 @@ const ProductsListingScreen = () => {
           ) : error ? (
             <Text style={{ color: colors.error, textAlign: 'center', margin: 40 }}>{error}</Text>
           ) : (
-            <FlatList
+            <FlashList
               data={filteredProducts}
               renderItem={renderProduct}
               keyExtractor={item => item.id?.toString()}
               numColumns={2}
-              columnWrapperStyle={styles.productRow}
               scrollEnabled={false}
               showsVerticalScrollIndicator={false}
               ListEmptyComponent={<Text style={{ color: colors.textLight, textAlign: 'center', margin: 40 }}>No products found.</Text>}
@@ -253,6 +212,7 @@ const styles = StyleSheet.create({
   productCard: {
     flex: 1,
     marginHorizontal: 6,
+    marginBottom:30
   },
   productInfoRow: {
     flexDirection: 'row',
@@ -289,8 +249,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     marginBottom: 8,
     width: '100%',
+    borderRadius:10
 
   },
+  cart: {borderWidth:1, borderColor: colors.primary,borderRadius:20,padding:2},
   placeholderText: {
     fontSize: 12,
     color: colors.textLight,

@@ -20,6 +20,7 @@ import {
 } from '@/stores/features/cart/cartSlice';
 import { CartItem } from '@/types';
 import OliveDivider from '@/components/divider/OliveDivider';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 const CartScreen = () => {
   const [promoCode, setPromoCode] = useState('');
@@ -71,7 +72,7 @@ const CartScreen = () => {
               style={styles.quantityButton}
               onPress={() => handleDecrementQuantity(item.id)}
             >
-              <Text style={styles.quantityButtonText}>-</Text>
+              <Ionicons name='remove-circle-outline' size={40} color={colors.primary} />
             </TouchableOpacity>
 
             <Text style={styles.quantityText}>{item.quantity}</Text>
@@ -80,7 +81,7 @@ const CartScreen = () => {
               style={styles.quantityButton}
               onPress={() => handleIncrementQuantity(item.id)}
             >
-              <Text style={styles.quantityButtonText}>+</Text>
+              <Ionicons name='add-circle-outline' size={40} color={colors.primary} />
             </TouchableOpacity>
           </View>
         </View>
@@ -254,11 +255,11 @@ backgroundColor: colors.lightGray
    
   },
   quantityButton: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 30,
-    borderWidth:2,
-    borderColor: colors.primary,
+    // paddingHorizontal: 12,
+    // paddingVertical: 6,
+    // borderRadius: 30,
+    // borderWidth:2,
+    // borderColor: colors.primary,
   },
   quantityButtonText: {
     fontSize: 14,
