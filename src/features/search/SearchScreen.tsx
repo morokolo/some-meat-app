@@ -2,10 +2,12 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from '../../styles/colors';
+import AppHeader from '@/components/header/AppHeader';
 
 const SearchScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
+      <AppHeader />
       <View style={styles.content}>
         <Text style={styles.title}>Search</Text>
         <Text style={styles.subtitle}>Find your products</Text>

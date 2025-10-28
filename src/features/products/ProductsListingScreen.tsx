@@ -12,11 +12,13 @@ import {
 } from 'react-native';
 import { colors } from '../../styles/colors';
 import { commonStyles } from '../../styles/commonStyles';
+import AppHeader from '@/components/header/AppHeader';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { fetchAllProducts, fetchMealCategories, fetchMealsByCategory, fetchAllMeals } from '@/stores/features/products/productsSlice';
 import { addItemToCart } from '@/stores/features/cart/cartSlice';
 import { Product, ProductCategory } from '@/types';
 import OliveDivider from '@/components/divider/OliveDivider';
+import Ionicons from '@expo/vector-icons/Ionicons';
 
 const ProductsListingScreen = () => {
   const formatCategoryLabel = (category: string) => {
@@ -111,16 +113,7 @@ const ProductsListingScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header */}
-      <View style={commonStyles.header}>
-        <TouchableOpacity>
-          <Text style={commonStyles.backButton}>‹ Back</Text>
-        </TouchableOpacity>
-        <View style={styles.headerRight}>
-          <Text style={commonStyles.headerTitle}>Filter</Text>
-          <Text style={styles.filterIcon}>⚙️</Text>
-        </View>
-      </View>
+      <AppHeader isFilter />
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         {/* Category Title */}

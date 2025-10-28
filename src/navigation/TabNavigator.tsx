@@ -1,7 +1,7 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Text } from 'react-native';
-
+import Ionicons from '@expo/vector-icons/Ionicons';
 // Import screens
 import ProfileScreen from '@features/profile/ProfileScreen';
 import HomeScreen from '@features/home/HomeScreen';
@@ -17,15 +17,10 @@ const TabNavigator = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarActiveTintColor: colors.primary,
-        tabBarInactiveTintColor: colors.textLight,
+        tabBarActiveTintColor: colors.white,
+        tabBarInactiveTintColor: colors.floral,
         tabBarStyle: {
-          // backgroundColor: colors.white,
-          // borderTopColor: colors.border,
-          // borderTopWidth: 1,
-         // paddingBottom: 8,
-         // paddingTop: 8,
-         // height: 60,
+          backgroundColor: colors.primary,
         },
         tabBarLabelStyle: {
           fontSize: 12,
@@ -40,7 +35,7 @@ const TabNavigator = () => {
         component={ProductsListingScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Text style={{ fontSize: size || 20, color }}>H</Text>
+            <Ionicons name="home-outline" size={size} color={color} />
           ),
         }}
       />
@@ -49,7 +44,7 @@ const TabNavigator = () => {
         component={FavouritesScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Text style={{ fontSize: size || 20, color }}>♥</Text>
+            <Ionicons name="heart-outline" size={size} color={color} />
           ),
         }}
       />
@@ -58,7 +53,7 @@ const TabNavigator = () => {
         component={SearchScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Text style={{ fontSize: size || 20, color }}>S</Text>
+            <Ionicons name="search-outline" size={size} color={color} />
           ),
         }}
       />
@@ -67,7 +62,7 @@ const TabNavigator = () => {
         component={CartScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Text style={{ fontSize: size || 20, color }}>C</Text>
+            <Ionicons name="cart-outline" size={size} color={color} />
           ),
         }}
       />
@@ -76,7 +71,8 @@ const TabNavigator = () => {
         component={ProfileScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Text style={{ fontSize: size || 20, color }}>P</Text>
+            // <Text style={{ fontSize: size || 20, color }}>P</Text>
+            <Ionicons name="person-outline" size={size} color={color} />
           ),
         }}
       />

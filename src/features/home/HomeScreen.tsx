@@ -10,8 +10,9 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from '@styles/colors';
 import { commonStyles } from '@styles/commonStyles';
+import AppHeader from '@/components/header/AppHeader';
 import { Product } from '@/types';
-
+import Ionicons from '@expo/vector-icons/Ionicons';
 const HomeScreen = () => {
   const [selectedCategory, setSelectedCategory] = useState('Beef');
 
@@ -91,16 +92,7 @@ const HomeScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header */}
-      <View style={commonStyles.header}>
-        <TouchableOpacity>
-          <Text style={commonStyles.backButton}>‹</Text>
-        </TouchableOpacity>
-        <View style={styles.headerRight}>
-          <Text style={commonStyles.headerTitle}>Filter</Text>
-          <Text style={styles.filterIcon}>⚙️</Text>
-        </View>
-      </View>
+      <AppHeader />
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         {/* Category Title */}

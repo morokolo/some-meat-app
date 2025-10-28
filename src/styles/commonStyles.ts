@@ -14,10 +14,18 @@ export const commonStyles = StyleSheet.create({
     backgroundColor: colors.background,
   },
   headerTitle: {
-    fontSize: 18,
+    fontSize: 14,
     fontWeight: '600',
-    color: colors.text,
+    color: colors.primary,
     fontFamily: 'Avenir-Roman',
+    marginRight:5
+  },
+  headerTitleLeft: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: colors.primary,
+    fontFamily: 'Avenir-Roman',
+    marginLeft:5
   },
   backButton: {
     fontSize: 24,

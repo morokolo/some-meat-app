@@ -8,7 +8,8 @@ import {
   TextInput,
   Image,
 } from 'react-native';
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import AppHeader from '@/components/header/AppHeader';
 import { colors } from '@styles/colors';
 import { commonStyles } from '@styles/commonStyles';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
@@ -87,19 +88,10 @@ const CartScreen = () => {
     </View>
   );
 
-  const insets = useSafeAreaInsets();
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
      {/* Header */}
-     <View style={[commonStyles.header, { paddingTop: insets.top }]}>
-        <TouchableOpacity>
-          <Text style={commonStyles.backButton}>‹ Back</Text>
-        </TouchableOpacity>
-        <View style={styles.headerRight}>
-          <Text style={commonStyles.headerTitle}>Filter</Text>
-          
-        </View>
-      </View>
+     <AppHeader />
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         {/* Cart Title */}
@@ -166,8 +158,7 @@ const CartScreen = () => {
         </View>
       </ScrollView>
 
-    
-    </View>
+    </SafeAreaView>
   );
 };
 
