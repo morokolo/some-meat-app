@@ -18,14 +18,14 @@ export const commonStyles = StyleSheet.create({
     fontWeight: '600',
     color: colors.primary,
     fontFamily: 'Avenir-Roman',
-    marginRight:5
+    marginRight: 5,
   },
   headerTitleLeft: {
     fontSize: 14,
     fontWeight: '600',
     color: colors.primary,
     fontFamily: 'Avenir-Roman',
-    marginLeft:5
+    marginLeft: 5,
   },
   backButton: {
     fontSize: 24,
@@ -56,7 +56,7 @@ export const commonStyles = StyleSheet.create({
     borderWidth: 0,
     borderBottomWidth: 1,
     borderColor: colors.primary,
-   
+
     paddingVertical: 12,
     fontSize: 18,
     color: colors.primary,
@@ -114,7 +114,7 @@ export const commonStyles = StyleSheet.create({
     fontSize: 14,
     fontFamily: 'Avenir-Roman',
   },
- 
+
   footerText: {
     fontSize: 12,
     color: colors.textLight,

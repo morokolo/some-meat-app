@@ -18,10 +18,10 @@ import OliveDivider from '@/components/divider/OliveDivider';
 import { commonStyles } from '@styles/commonStyles';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { loginThunk } from '@/stores/features/registration/registrationSlice';
-import { fetchAllProducts } from '@/stores/features/products/productsSlice';
+import { fetchAllMeals, fetchAllProducts } from '@/stores/features/products/productsSlice';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
-
+import Ionicons from '@expo/vector-icons/Ionicons';
 const RegistrationScreen = () => {
   const navigation = useNavigation();
   const dispatch = useAppDispatch();
@@ -31,7 +31,7 @@ const RegistrationScreen = () => {
 
   useEffect(() => {
     if (token && !loading) {
-      dispatch(fetchAllProducts());
+      dispatch(fetchAllMeals());
       navigation.navigate('MainTabs' as never); // or the actual route for products page
     }
   }, [token, loading, dispatch, navigation]);
@@ -49,9 +49,13 @@ const RegistrationScreen = () => {
 
   const RegistrationSchema = Yup.object().shape({
     fullName: Yup.string().required('Full name is required'),
-    email: Yup.string().email('Enter a valid email').required('Email is required'),
+    email: Yup.string()
+      .email('Enter a valid email')
+      .required('Email is required'),
     mobileNumber: Yup.string().required('Mobile number is required'),
-    password: Yup.string().min(6, 'Min 6 characters').required('Password is required'),
+    password: Yup.string()
+      .min(6, 'Min 6 characters')
+      .required('Password is required'),
   });
 
   const handleExploreApp = () => {
@@ -66,20 +70,38 @@ const RegistrationScreen = () => {
           <Text style={commonStyles.backButton}>‹</Text>
         </TouchableOpacity>
       </View>
-      <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end', marginHorizontal:20}}>
-       
-        <Text style={{   fontSize: 16,
+      <View
+        style={{
+          display: 'flex',
+          flexDirection: 'row',
+          justifyContent: 'flex-end',
+          alignItems: 'flex-end',
+          marginHorizontal: 20,
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 16,
 
-    color: colors.text,
-    fontFamily: 'Avenir-Roman',
-    fontWeight: '100', alignContent: 'flex-end', alignSelf: 'flex-end'}}>Explore app</Text>
+            color: colors.text,
+            fontFamily: 'Avenir-Roman',
+            fontWeight: '100',
+            alignContent: 'flex-end',
+            alignSelf: 'flex-end',
+          }}
+        >
+          Explore app
+        </Text>
       </View>
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         {/* Welcome Section */}
         <View style={styles.welcomeSection}>
-        <Text style={styles.welcomeTitle}>Welcome to {'\n'}<Text>Pantry by Marble</Text></Text>
-       
+          <Text style={styles.welcomeTitle}>
+            Welcome to {'\n'}
+            <Text>Pantry by Marble</Text>
+          </Text>
+
           <Text style={styles.subtitleAvenir}>
             Sign up for easy payment, collection
             {'\n'}
@@ -88,21 +110,37 @@ const RegistrationScreen = () => {
           <OliveDivider style={{ marginBottom: 40 }} height={15} />
         </View>
 
-        <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        >
           <Formik
             initialValues={{
-              fullName: 'mor_2314',
+              fullName: 'mor_2314', //https://fakestoreapi.com/auth/login credentials
               email: 'john.doe@email.com',
               mobileNumber: '+27 | 72 815 4332',
-              password: '83r5^_',
+              password: '83r5^_',////https://fakestoreapi.com/auth/login credentials
             }}
             validationSchema={RegistrationSchema}
             onSubmit={values => {
               setShowError(false);
-              dispatch(loginThunk({ username: values.fullName, password: values.password }));
+              dispatch(
+                loginThunk({
+                  username: values.fullName,
+                  password: values.password,
+                })
+              );
             }}
           >
-            {({ handleChange, handleBlur, handleSubmit, values, errors, touched, isValid, isSubmitting }) => (
+            {({
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              values,
+              errors,
+              touched,
+              isValid,
+              isSubmitting,
+            }) => (
               <View style={styles.formSection}>
                 {/* Full Name */}
                 <View style={commonStyles.inputContainer}>
@@ -126,7 +164,9 @@ const RegistrationScreen = () => {
                     </TouchableOpacity>
                   </View>
                   {touched.fullName && errors.fullName ? (
-                    <Text style={{ color: colors.error }}>{errors.fullName}</Text>
+                    <Text style={{ color: colors.error }}>
+                      {errors.fullName}
+                    </Text>
                   ) : null}
                 </View>
 
@@ -181,7 +221,9 @@ const RegistrationScreen = () => {
                     </TouchableOpacity>
                   </View>
                   {touched.mobileNumber && errors.mobileNumber ? (
-                    <Text style={{ color: colors.error }}>{errors.mobileNumber}</Text>
+                    <Text style={{ color: colors.error }}>
+                      {errors.mobileNumber}
+                    </Text>
                   ) : null}
                 </View>
 
@@ -204,11 +246,13 @@ const RegistrationScreen = () => {
                       accessibilityRole='button'
                       accessibilityLabel='Toggle password visibility'
                     >
-                      <Text style={styles.eyeButtonText}>👁</Text>
+                      <Ionicons name={!showPassword ? 'eye-outline' : 'eye-off-outline'} size={20} color={colors.primary} />
                     </TouchableOpacity>
                   </View>
                   {touched.password && errors.password ? (
-                    <Text style={{ color: colors.error }}>{errors.password}</Text>
+                    <Text style={{ color: colors.error }}>
+                      {errors.password}
+                    </Text>
                   ) : null}
                 </View>
 
@@ -222,20 +266,38 @@ const RegistrationScreen = () => {
                     accessibilityLabel='Sign up'
                   >
                     {loading ? (
-                      <ActivityIndicator color={colors.white} style={{ marginVertical: 4 }} />
+                      <ActivityIndicator
+                        color={colors.white}
+                        style={{ marginVertical: 4 }}
+                      />
                     ) : (
                       <Text style={commonStyles.buttonText}>Sign up</Text>
                     )}
                   </TouchableOpacity>
 
                   {showError && error && (
-                    <Text style={{ color: colors.error, marginTop: 8, textAlign: 'center' }}>{error}</Text>
+                    <Text
+                      style={{
+                        color: colors.error,
+                        marginTop: 8,
+                        textAlign: 'center',
+                      }}
+                    >
+                      {error}
+                    </Text>
                   )}
 
                   <View style={styles.loginSection}>
-                    <Text style={styles.loginText} numberOfLines={1}>Have an account? </Text>
-                    <TouchableOpacity accessibilityRole='button' accessibilityLabel='Login'>
-                      <Text style={commonStyles.linkText} numberOfLines={1}>Login</Text>
+                    <Text style={styles.loginText} numberOfLines={1}>
+                      Have an account?{' '}
+                    </Text>
+                    <TouchableOpacity
+                      accessibilityRole='button'
+                      accessibilityLabel='Login'
+                    >
+                      <Text style={commonStyles.linkText} numberOfLines={1}>
+                        Login
+                      </Text>
                     </TouchableOpacity>
                   </View>
 
@@ -252,15 +314,22 @@ const RegistrationScreen = () => {
                     accessibilityRole='button'
                     accessibilityLabel='Explore our app'
                   >
-                    <Text style={[commonStyles.buttonText]}>Explore our app</Text>
+                    <Text style={[commonStyles.buttonText]}>
+                      Explore our app
+                    </Text>
                   </TouchableOpacity>
                   {/* Footer */}
                   <View>
                     <Text style={commonStyles.footerText}>
                       By signing up you agree to our,{' '}
                       <Text style={commonStyles.linkTextSecondary}>Terms</Text>,{' '}
-                      <Text style={commonStyles.linkTextSecondary}>Data Policy</Text>, and{' '}
-                      <Text style={commonStyles.linkTextSecondary}>Cookies Policy</Text>
+                      <Text style={commonStyles.linkTextSecondary}>
+                        Data Policy
+                      </Text>
+                      , and{' '}
+                      <Text style={commonStyles.linkTextSecondary}>
+                        Cookies Policy
+                      </Text>
                     </Text>
                   </View>
                 </View>
@@ -269,8 +338,6 @@ const RegistrationScreen = () => {
           </Formik>
         </KeyboardAvoidingView>
       </ScrollView>
-
-      
     </SafeAreaView>
   );
 };
@@ -299,7 +366,7 @@ const styles = StyleSheet.create({
     color: colors.textOlive,
     marginBottom: 10,
     fontFamily: 'Avenir-Roman',
-    fontWeight: '100'
+    fontWeight: '100',
   },
   formSection: {
     marginBottom: 40,
@@ -319,7 +386,7 @@ const styles = StyleSheet.create({
     height: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    color:colors.primary
+    color: colors.primary,
   },
   clearButtonText: {
     fontSize: 16,
@@ -341,6 +408,7 @@ const styles = StyleSheet.create({
   },
   actionSection: {
     marginBottom: 100,
+    marginTop:20
   },
   loginSection: {
     flexDirection: 'row',

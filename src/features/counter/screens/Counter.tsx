@@ -5,21 +5,15 @@ import { useAppDispatch, useAppSelector } from '@stores/hooks';
 import { increment, decrement } from '@features/counter/redux/reducer';
 
 export function Counter() {
-  const count = useAppSelector((state) => state.counter.value);
+  const count = useAppSelector(state => state.counter.value);
   const dispatch = useAppDispatch();
   // Redux Test component
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.contentContainer}>
-        <Button
-          title={'Increment'}
-          onPress={() => dispatch(increment())}
-        />
+        <Button title={'Increment'} onPress={() => dispatch(increment())} />
         <Text style={styles.text}>{count}</Text>
-        <Button
-          title={'Decrement'}
-          onPress={() => dispatch(decrement())}
-        />
+        <Button title={'Decrement'} onPress={() => dispatch(decrement())} />
       </View>
     </SafeAreaView>
   );

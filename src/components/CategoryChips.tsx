@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, ScrollView } from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+  ScrollView,
+} from 'react-native';
 import { colors } from '@styles/colors';
 
 type Props = {
@@ -18,7 +24,12 @@ const CategoryChips: React.FC<Props> = ({ categories, selected, onSelect }) => {
             style={[styles.chip, selected === category && styles.chipActive]}
             onPress={() => onSelect(category)}
           >
-            <Text style={[styles.chipText, selected === category && styles.chipTextActive]}>
+            <Text
+              style={[
+                styles.chipText,
+                selected === category && styles.chipTextActive,
+              ]}
+            >
               {category}
             </Text>
           </TouchableOpacity>
@@ -48,5 +59,3 @@ const styles = StyleSheet.create({
 });
 
 export default CategoryChips;
-
-

@@ -1,9 +1,11 @@
 # Pantry - React Native E-commerce App
 
+
 A React Native e-commerce application built with Expo, TypeScript, and Redux Toolkit, featuring product listings, shopping cart functionality, and user authentication.
 
 ## 🚀 Quick Start
-
+https://fakestoreapi.com/auth/login used for login with the prepopulated credentials in the registration form
+https://fakestoreapi.com/auth/login 
 ```bash
 # Install dependencies
 yarn install

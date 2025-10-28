@@ -6,13 +6,15 @@ export const getCart = async (userId: number = 1) => {
   return await res.json();
 };
 
-export const addToCart = async (cartId: number, productId: number, quantity: number) => {
+export const addToCart = async (
+  cartId: number,
+  productId: number,
+  quantity: number
+) => {
   const res = await fetch(`https://fakestoreapi.com/carts/${cartId}`, {
     method: 'PUT',
     body: JSON.stringify({
-      products: [
-        { productId, quantity }
-      ]
+      products: [{ productId, quantity }],
     }),
     headers: {
       'Content-Type': 'application/json',
@@ -43,7 +45,10 @@ export const removeItemFromLocalCart = async (productId: number) => {
   return { success: true, productId };
 };
 
-export const updateItemQuantityInLocalCart = async (productId: number, quantity: number) => {
+export const updateItemQuantityInLocalCart = async (
+  productId: number,
+  quantity: number
+) => {
   // Simulate API call delay
   await new Promise(resolve => setTimeout(resolve, 100));
   return { success: true, productId, quantity };

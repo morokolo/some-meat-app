@@ -41,6 +41,7 @@ const ProductsListingScreen = () => {
       dispatch(fetchMealCategories());
       dispatch(fetchAllMeals());
     } else if (!products || !Array.isArray(products) || products.length === 0) {
+      //if users can't find food show them clothes hahaha, you cannot be hungry and dirty at this point
       dispatch(fetchAllProducts());
     }
   }, [dispatch, isAuthenticated]);

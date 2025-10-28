@@ -13,10 +13,10 @@ import AppHeader from '@/components/header/AppHeader';
 import { colors } from '@styles/colors';
 import { commonStyles } from '@styles/commonStyles';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
-import { 
-  removeItemFromCart, 
-  incrementQuantity, 
-  decrementQuantity 
+import {
+  removeItemFromCart,
+  incrementQuantity,
+  decrementQuantity,
 } from '@/stores/features/cart/cartSlice';
 import { CartItem } from '@/types';
 import OliveDivider from '@/components/divider/OliveDivider';
@@ -54,38 +54,47 @@ const CartScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-     {/* Header */}
-     <AppHeader />
+      {/* Header */}
+      <AppHeader />
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         {/* Cart Title */}
-        <View style={{paddingHorizontal:20, backgroundColor: colors.background}}>
-        <View style={styles.titleSection}>
-          <Text style={styles.cartTitle}>Cart</Text>
-          <OliveDivider style={{ marginBottom: 0, marginTop:10 }} height={15} />
-        </View>
-       
+        <View
+          style={{ paddingHorizontal: 20, backgroundColor: colors.background }}
+        >
+          <View style={styles.titleSection}>
+            <Text style={styles.cartTitle}>Cart</Text>
+            <OliveDivider
+              style={{ marginBottom: 0, marginTop: 10 }}
+              height={15}
+            />
+          </View>
 
-        {/* Cart Items */}
-        <View style={styles.cartItemsSection}>
-          {cartItems.length === 0 ? (
-            <View style={styles.emptyCart}>
-              <Text style={styles.emptyCartText}>Your cart is empty</Text>
-              <Text style={styles.emptyCartSubtext}>Add some items to get started!</Text>
-            </View>
-          ) : (
-            cartItems.map(renderCartItem)
-          )}
-        </View>
+          {/* Cart Items */}
+          <View style={styles.cartItemsSection}>
+            {cartItems.length === 0 ? (
+              <View style={styles.emptyCart}>
+                <Text style={styles.emptyCartText}>Your cart is empty</Text>
+                <Text style={styles.emptyCartSubtext}>
+                  Add some items to get started!
+                </Text>
+              </View>
+            ) : (
+              cartItems.map(renderCartItem)
+            )}
+          </View>
 
-        {/* Promo Code Section */}
-        <PromoCodeBar value={promoCode} onChange={setPromoCode} onApply={() => {}} />
+          {/* Promo Code Section */}
+          <PromoCodeBar
+            value={promoCode}
+            onChange={setPromoCode}
+            onApply={() => {}}
+          />
         </View>
 
         {/* Order Summary */}
         <OrderSummary subtotal={total} deliveryFee={28} onCheckout={() => {}} />
       </ScrollView>
-
     </SafeAreaView>
   );
 };
@@ -97,7 +106,7 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-backgroundColor: colors.lightGray
+    backgroundColor: colors.lightGray,
   },
   titleSection: {
     marginTop: 20,
@@ -152,7 +161,7 @@ backgroundColor: colors.lightGray
     marginBottom: 8,
     fontFamily: 'AGaramondPro-Italic',
     textTransform: 'uppercase',
-    marginTop:20
+    marginTop: 20,
   },
   itemPrice: {
     fontSize: 14,
@@ -170,16 +179,14 @@ backgroundColor: colors.lightGray
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 20,
- borderWidth:2,
- borderColor: colors.primary,
-
+    borderWidth: 2,
+    borderColor: colors.primary,
   },
   removeButtonText: {
     fontSize: 14,
     fontWeight: '500',
     color: colors.primary,
     fontFamily: 'Avenir-Roman',
-   
   },
   quantityButton: {
     // paddingHorizontal: 12,
@@ -193,7 +200,6 @@ backgroundColor: colors.lightGray
     fontWeight: '500',
     color: colors.primary,
     fontFamily: 'Avenir-Roman',
-    
   },
   quantitySelector: {
     flexDirection: 'row',
@@ -208,10 +214,10 @@ backgroundColor: colors.lightGray
   promoSection: {
     flexDirection: 'row',
     marginBottom: 32,
-    borderWidth:2,
+    borderWidth: 2,
     borderColor: colors.primary,
     borderRadius: 30,
-    padding:4
+    padding: 4,
   },
   promoInput: {
     flex: 1,
@@ -239,9 +245,8 @@ backgroundColor: colors.lightGray
     fontFamily: 'Avenir-Roman',
   },
   orderSummary: {
-
     backgroundColor: colors.lightGray,
-    padding:20
+    padding: 20,
   },
   summaryRow: {
     flexDirection: 'row',
@@ -256,7 +261,7 @@ backgroundColor: colors.lightGray
   summaryValue: {
     fontSize: 14,
     color: colors.primary,
-    fontWeight: '600'
+    fontWeight: '600',
   },
   totalRow: {
     borderTopWidth: 1,

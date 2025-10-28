@@ -21,8 +21,12 @@ export async function getMealCategories(): Promise<string[]> {
   return categories.map(c => c.strCategory);
 }
 
-export async function getMealsByCategory(category: string): Promise<MealSummaryApi[]> {
-  const res = await fetch(`${BASE_URL}/filter.php?c=${encodeURIComponent(category)}`);
+export async function getMealsByCategory(
+  category: string
+): Promise<MealSummaryApi[]> {
+  const res = await fetch(
+    `${BASE_URL}/filter.php?c=${encodeURIComponent(category)}`
+  );
   if (!res.ok) throw new Error('Failed to fetch meals by category');
   const json = await res.json();
   return (json?.meals as MealSummaryApi[] | undefined) ?? [];
@@ -35,5 +39,3 @@ export async function getAllMeals(): Promise<MealSummaryApi[]> {
   const json = await res.json();
   return (json?.meals as MealSummaryApi[] | undefined) ?? [];
 }
-
-

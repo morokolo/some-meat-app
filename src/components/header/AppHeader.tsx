@@ -12,7 +12,12 @@ type Props = {
   onFilterPress?: () => void;
 };
 
-const AppHeader: React.FC<Props> = ({ title = '', isFilter = false, onBackPress, onFilterPress }) => {
+const AppHeader: React.FC<Props> = ({
+  title = '',
+  isFilter = false,
+  onBackPress,
+  onFilterPress,
+}) => {
   const insets = useSafeAreaInsets();
   return (
     <View style={[commonStyles.header]}>
@@ -47,5 +52,3 @@ const styles = StyleSheet.create({
 });
 
 export default AppHeader;
-
-

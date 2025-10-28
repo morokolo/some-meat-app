@@ -18,7 +18,7 @@ const ProductCard: React.FC<Props> = ({ product, onAddToCart, stylesRef }) => {
           <Image
             source={{ uri: product.image }}
             style={stylesRef.productImageReal}
-            resizeMode="cover"
+            resizeMode='cover'
           />
         ) : (
           <View style={stylesRef.productImagePlaceholder}>
@@ -37,10 +37,11 @@ const ProductCard: React.FC<Props> = ({ product, onAddToCart, stylesRef }) => {
         <View>
           <Text style={stylesRef.productPrice}>R XXX.XX</Text>
         </View>
-        <TouchableOpacity onPress={() => onAddToCart && onAddToCart(product)} style={stylesRef.cart}>
-       
+        <TouchableOpacity
+          onPress={() => onAddToCart && onAddToCart(product)}
+          style={stylesRef.cart}
+        >
           <Ionicons name='cart-outline' size={20} color={colors.primary} />
-          
         </TouchableOpacity>
       </View>
     </View>
@@ -48,5 +49,3 @@ const ProductCard: React.FC<Props> = ({ product, onAddToCart, stylesRef }) => {
 };
 
 export default ProductCard;
-
-

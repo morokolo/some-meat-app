@@ -16,5 +16,5 @@ export const colors = {
   success: '#4CAF50',
   error: '#F44336',
   lightGray: '#EBEAE4',
-  floral: '#979f8f'
+  floral: '#979f8f',
 };

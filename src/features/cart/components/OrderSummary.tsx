@@ -8,7 +8,11 @@ type Props = {
   onCheckout: () => void;
 };
 
-const OrderSummary: React.FC<Props> = ({ subtotal, deliveryFee, onCheckout }) => {
+const OrderSummary: React.FC<Props> = ({
+  subtotal,
+  deliveryFee,
+  onCheckout,
+}) => {
   const total = subtotal + deliveryFee;
   return (
     <View style={styles.orderSummary}>
@@ -86,5 +90,3 @@ const styles = StyleSheet.create({
 });
 
 export default OrderSummary;
-
-

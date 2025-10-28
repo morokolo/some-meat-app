@@ -11,7 +11,7 @@ export const store = configureStore({
     registration: registrationReducer,
     counter: counterReducer,
   },
-  middleware: (getDefaultMiddleware) =>
+  middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: true,
     }),

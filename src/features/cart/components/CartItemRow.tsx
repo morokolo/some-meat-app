@@ -11,12 +11,21 @@ type Props = {
   onIncrement: (id: number) => void;
 };
 
-const CartItemRow: React.FC<Props> = ({ item, onRemove, onDecrement, onIncrement }) => {
+const CartItemRow: React.FC<Props> = ({
+  item,
+  onRemove,
+  onDecrement,
+  onIncrement,
+}) => {
   return (
     <View style={styles.cartItem}>
       <View style={styles.itemImageContainer}>
         {item.image ? (
-          <Image source={{ uri: item.image }} style={styles.itemImage} resizeMode='cover' />
+          <Image
+            source={{ uri: item.image }}
+            style={styles.itemImage}
+            resizeMode='cover'
+          />
         ) : (
           <View style={styles.itemImagePlaceholder}>
             <Text style={styles.placeholderText}>No Image</Text>
@@ -29,17 +38,34 @@ const CartItemRow: React.FC<Props> = ({ item, onRemove, onDecrement, onIncrement
         <Text style={styles.itemPrice}>R {item.price}</Text>
 
         <View style={styles.quantityControls}>
-          <TouchableOpacity style={styles.removeButton} onPress={() => onRemove(item.id)}>
+          <TouchableOpacity
+            style={styles.removeButton}
+            onPress={() => onRemove(item.id)}
+          >
             <Text style={styles.removeButtonText}>Remove</Text>
           </TouchableOpacity>
 
           <View style={styles.quantitySelector}>
-            <TouchableOpacity style={styles.quantityButton} onPress={() => onDecrement(item.id)}>
-              <Ionicons name='remove-circle-outline' size={40} color={colors.primary} />
+            <TouchableOpacity
+              style={styles.quantityButton}
+              onPress={() => onDecrement(item.id)}
+            >
+              <Ionicons
+                name='remove-circle-outline'
+                size={40}
+                color={colors.primary}
+              />
             </TouchableOpacity>
             <Text style={styles.quantityText}>{item.quantity}</Text>
-            <TouchableOpacity style={styles.quantityButton} onPress={() => onIncrement(item.id)}>
-              <Ionicons name='add-circle-outline' size={40} color={colors.primary} />
+            <TouchableOpacity
+              style={styles.quantityButton}
+              onPress={() => onIncrement(item.id)}
+            >
+              <Ionicons
+                name='add-circle-outline'
+                size={40}
+                color={colors.primary}
+              />
             </TouchableOpacity>
           </View>
         </View>
@@ -125,5 +151,3 @@ const styles = StyleSheet.create({
 });
 
 export default CartItemRow;
-
-

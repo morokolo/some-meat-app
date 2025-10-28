@@ -4,7 +4,7 @@ import productsReducer from '@stores/features/products/productsSlice';
 import cartReducer from '@stores/features/cart/cartSlice';
 import registrationReducer from '@stores/features/registration/registrationSlice';
 
-const appReducer = combineReducers({ 
+const appReducer = combineReducers({
   counter: counterReducer,
   products: productsReducer,
   cart: cartReducer,

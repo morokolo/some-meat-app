@@ -1,5 +1,11 @@
 import React from 'react';
-import { View, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import {
+  View,
+  TextInput,
+  TouchableOpacity,
+  Text,
+  StyleSheet,
+} from 'react-native';
 import { colors } from '@styles/colors';
 
 type Props = {
@@ -59,5 +65,3 @@ const styles = StyleSheet.create({
 });
 
 export default PromoCodeBar;
-
-

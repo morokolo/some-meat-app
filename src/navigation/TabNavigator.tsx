@@ -25,7 +25,7 @@ const TabNavigator = () => {
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: '500',
-         // marginTop: 4,
+          // marginTop: 4,
         },
         headerShown: false,
       }}
@@ -35,7 +35,7 @@ const TabNavigator = () => {
         component={ProductsListingScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home-outline" size={size} color={color} />
+            <Ionicons name='home-outline' size={size} color={color} />
           ),
         }}
       />
@@ -44,7 +44,7 @@ const TabNavigator = () => {
         component={FavouritesScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="heart-outline" size={size} color={color} />
+            <Ionicons name='heart-outline' size={size} color={color} />
           ),
         }}
       />
@@ -53,7 +53,7 @@ const TabNavigator = () => {
         component={SearchScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="search-outline" size={size} color={color} />
+            <Ionicons name='search-outline' size={size} color={color} />
           ),
         }}
       />
@@ -62,7 +62,7 @@ const TabNavigator = () => {
         component={CartScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="cart-outline" size={size} color={color} />
+            <Ionicons name='cart-outline' size={size} color={color} />
           ),
         }}
       />
@@ -72,7 +72,7 @@ const TabNavigator = () => {
         options={{
           tabBarIcon: ({ color, size }) => (
             // <Text style={{ fontSize: size || 20, color }}>P</Text>
-            <Ionicons name="person-outline" size={size} color={color} />
+            <Ionicons name='person-outline' size={size} color={color} />
           ),
         }}
       />
