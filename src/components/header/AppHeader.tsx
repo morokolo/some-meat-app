@@ -1,6 +1,5 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { colors } from '@styles/colors';
 import { commonStyles } from '@styles/commonStyles';
@@ -18,7 +17,6 @@ const AppHeader: React.FC<Props> = ({
   onBackPress,
   onFilterPress,
 }) => {
-  const insets = useSafeAreaInsets();
   return (
     <View style={[commonStyles.header]}>
       <TouchableOpacity onPress={onBackPress}>

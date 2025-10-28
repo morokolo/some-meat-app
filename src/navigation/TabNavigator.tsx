@@ -1,10 +1,8 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Text } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 // Import screens
 import ProfileScreen from '@features/profile/ProfileScreen';
-import HomeScreen from '@features/home/HomeScreen';
 import FavouritesScreen from '@features/favourites/FavouritesScreen';
 import SearchScreen from '@features/search/SearchScreen';
 import CartScreen from '@/features/cart/screens/CartScreen';

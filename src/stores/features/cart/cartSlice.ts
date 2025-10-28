@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import * as cartApi from '@/api/cartApi';
-import { CartItem, CartState, Product } from '@/types';
+import { CartState } from '@/types';
 
 export const fetchCart = createAsyncThunk(
   'cart/fetch',

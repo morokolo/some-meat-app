@@ -1,4 +1,4 @@
-import { LoginCredentials, RegistrationData, AuthResponse } from '@/types';
+import { RegistrationData, AuthResponse } from '@/types';
 
 export const login = async (
   username: string,

@@ -9,10 +9,8 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { colors } from '@styles/colors';
-import { commonStyles } from '@styles/commonStyles';
 import AppHeader from '@/components/header/AppHeader';
 import { Product } from '@/types';
-import Ionicons from '@expo/vector-icons/Ionicons';
 const HomeScreen = () => {
   const [selectedCategory, setSelectedCategory] = useState('Beef');
 

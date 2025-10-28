@@ -1,17 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, ScrollView, SafeAreaView, ActivityIndicator } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  ScrollView,
+  SafeAreaView,
+  ActivityIndicator,
+} from 'react-native';
 import { FlashList } from '@shopify/flash-list';
 import { colors } from '../../styles/colors';
-import { commonStyles } from '../../styles/commonStyles';
 import AppHeader from '@/components/header/AppHeader';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
-import { fetchAllProducts, fetchMealCategories, fetchMealsByCategory, fetchAllMeals } from '@/stores/features/products/productsSlice';
+import {
+  fetchMealCategories,
+  fetchMealsByCategory,
+  fetchAllMeals,
+} from '@/stores/features/products/productsSlice';
 import { addItemToCart } from '@/stores/features/cart/cartSlice';
 import { Product, ProductCategory } from '@/types';
 import OliveDivider from '@/components/divider/OliveDivider';
 import ProductCard from '@/components/product/ProductCard';
 import CategoryChips from '@/components/CategoryChips';
-import Ionicons from '@expo/vector-icons/Ionicons';
 
 const ProductsListingScreen = () => {
   const formatCategoryLabel = (category: string) => {
@@ -21,19 +30,30 @@ const ProductsListingScreen = () => {
       .toLowerCase()
       .replace(/\b\w/g, c => c.toUpperCase());
   };
-  const [selectedCategory, setSelectedCategory] = useState<string>(ProductCategory.ALL);
-  const isAuthenticated = useAppSelector(state => state.registration.isAuthenticated);
-  const mealCategories = useAppSelector(state => state.products.mealCategories) || [];
+  const [selectedCategory, setSelectedCategory] = useState<string>(
+    ProductCategory.ALL
+  );
+  const isAuthenticated = useAppSelector(
+    state => state.registration.isAuthenticated
+  );
+  const mealCategories =
+    useAppSelector(state => state.products.mealCategories) || [];
   const useMealsApi = useAppSelector(state => state.products.useMealsApi);
-  const categories = useMealsApi ? ['All', ...mealCategories] : [
-    ProductCategory.ALL, 
-    ProductCategory.ELECTRONICS, 
-    ProductCategory.JEWELERY, 
-    ProductCategory.MENS_CLOTHING, 
-    ProductCategory.WOMENS_CLOTHING
-  ];
+  const categories = useMealsApi
+    ? ['All', ...mealCategories]
+    : [
+        ProductCategory.ALL,
+        ProductCategory.ELECTRONICS,
+        ProductCategory.JEWELERY,
+        ProductCategory.MENS_CLOTHING,
+        ProductCategory.WOMENS_CLOTHING,
+      ];
   const dispatch = useAppDispatch();
-  const { items: products, loading, error } = useAppSelector(state => state.products);
+  const {
+    items: products,
+    loading,
+    error,
+  } = useAppSelector(state => state.products);
   const { items: cartItems } = useAppSelector(state => state.cart);
 
   useEffect(() => {
@@ -42,13 +62,17 @@ const ProductsListingScreen = () => {
       dispatch(fetchAllMeals());
     } else if (!products || !Array.isArray(products) || products.length === 0) {
       //if users can't find food show them clothes hahaha, you cannot be hungry and dirty at this point
-      dispatch(fetchAllProducts());
+      //dispatch(fetchAllProducts());
     }
   }, [dispatch, isAuthenticated]);
 
   useEffect(() => {
     if (useMealsApi) {
-      if (!selectedCategory || selectedCategory === ProductCategory.ALL || selectedCategory === 'All') {
+      if (
+        !selectedCategory ||
+        selectedCategory === ProductCategory.ALL ||
+        selectedCategory === 'All'
+      ) {
         dispatch(fetchAllMeals());
       } else {
         dispatch(fetchMealsByCategory(selectedCategory));
@@ -70,7 +94,11 @@ const ProductsListingScreen = () => {
   };
 
   const renderProduct = ({ item }: { item: Product }) => (
-    <ProductCard product={item} onAddToCart={handleAddToCart} stylesRef={styles} />
+    <ProductCard
+      product={item}
+      onAddToCart={handleAddToCart}
+      stylesRef={styles}
+    />
   );
 
   return (
@@ -92,7 +120,8 @@ const ProductsListingScreen = () => {
             onSelect={label => {
               // Map back to raw value when meals API is used
               const original = useMealsApi
-                ? (categories.find(c => formatCategoryLabel(c) === label) || label)
+                ? categories.find(c => formatCategoryLabel(c) === label) ||
+                  label
                 : label.toLowerCase();
               setSelectedCategory(original);
             }}
@@ -103,15 +132,22 @@ const ProductsListingScreen = () => {
         <View style={styles.productSectionHeader}>
           <Text style={styles.basedOnSelection}>Based on your selection</Text>
           <Text style={styles.ourProducts}>Our products</Text>
-          
         </View>
 
         {/* Loading, Error, Products Display */}
         <View style={styles.productGrid}>
           {loading ? (
-            <ActivityIndicator size="large" color={colors.primary} style={{ margin: 40 }} />
+            <ActivityIndicator
+              size='large'
+              color={colors.primary}
+              style={{ margin: 40 }}
+            />
           ) : error ? (
-            <Text style={{ color: colors.error, textAlign: 'center', margin: 40 }}>{error}</Text>
+            <Text
+              style={{ color: colors.error, textAlign: 'center', margin: 40 }}
+            >
+              {error}
+            </Text>
           ) : (
             <FlashList
               data={filteredProducts}
@@ -120,7 +156,17 @@ const ProductsListingScreen = () => {
               numColumns={2}
               scrollEnabled={false}
               showsVerticalScrollIndicator={false}
-              ListEmptyComponent={<Text style={{ color: colors.textLight, textAlign: 'center', margin: 40 }}>No products found.</Text>}
+              ListEmptyComponent={
+                <Text
+                  style={{
+                    color: colors.textLight,
+                    textAlign: 'center',
+                    margin: 40,
+                  }}
+                >
+                  No products found.
+                </Text>
+              }
             />
           )}
         </View>
@@ -163,7 +209,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 12,
     marginRight: 12,
-  
   },
   categoryTabActive: {
     //backgroundColor: colors.primary,
@@ -191,7 +236,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: colors.primary,
     fontFamily: 'AGaramondPro-Bold',
-    marginVertical:5
+    marginVertical: 5,
   },
   productGrid: {
     marginBottom: 20,
@@ -204,7 +249,7 @@ const styles = StyleSheet.create({
   productCard: {
     flex: 1,
     marginHorizontal: 6,
-    marginBottom:30
+    marginBottom: 30,
   },
   productInfoRow: {
     flexDirection: 'row',
@@ -241,16 +286,19 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     marginBottom: 8,
     width: '100%',
-    borderRadius:10
-
+    borderRadius: 10,
   },
-  cart: {borderWidth:1, borderColor: colors.primary,borderRadius:20,padding:2},
+  cart: {
+    borderWidth: 1,
+    borderColor: colors.primary,
+    borderRadius: 20,
+    padding: 2,
+  },
   placeholderText: {
     fontSize: 12,
     color: colors.textLight,
   },
   cartIcon: {
-
     width: 32,
     height: 32,
     borderRadius: 16,
@@ -280,7 +328,6 @@ const styles = StyleSheet.create({
     color: colors.primary,
     fontWeight: 900,
     fontFamily: 'Avenir-Roman',
-  
   },
 });
 

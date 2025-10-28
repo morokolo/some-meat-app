@@ -18,7 +18,7 @@ import OliveDivider from '@/components/divider/OliveDivider';
 import { commonStyles } from '@styles/commonStyles';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { loginThunk } from '@/stores/features/registration/registrationSlice';
-import { fetchAllMeals, fetchAllProducts } from '@/stores/features/products/productsSlice';
+import { fetchAllMeals } from '@/stores/features/products/productsSlice';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import Ionicons from '@expo/vector-icons/Ionicons';
@@ -118,7 +118,7 @@ const RegistrationScreen = () => {
               fullName: 'mor_2314', //https://fakestoreapi.com/auth/login credentials
               email: 'john.doe@email.com',
               mobileNumber: '+27 | 72 815 4332',
-              password: '83r5^_',////https://fakestoreapi.com/auth/login credentials
+              password: '83r5^_', ////https://fakestoreapi.com/auth/login credentials
             }}
             validationSchema={RegistrationSchema}
             onSubmit={values => {
@@ -246,7 +246,11 @@ const RegistrationScreen = () => {
                       accessibilityRole='button'
                       accessibilityLabel='Toggle password visibility'
                     >
-                      <Ionicons name={!showPassword ? 'eye-outline' : 'eye-off-outline'} size={20} color={colors.primary} />
+                      <Ionicons
+                        name={!showPassword ? 'eye-outline' : 'eye-off-outline'}
+                        size={20}
+                        color={colors.primary}
+                      />
                     </TouchableOpacity>
                   </View>
                   {touched.password && errors.password ? (
@@ -408,7 +412,7 @@ const styles = StyleSheet.create({
   },
   actionSection: {
     marginBottom: 100,
-    marginTop:20
+    marginTop: 20,
   },
   loginSection: {
     flexDirection: 'row',

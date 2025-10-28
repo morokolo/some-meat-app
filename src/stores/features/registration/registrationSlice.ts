@@ -1,11 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import * as authApi from '@/api/authApi';
-import {
-  AuthState,
-  LoginCredentials,
-  RegistrationData,
-  AuthResponse,
-} from '@/types';
+import { AuthState, LoginCredentials, RegistrationData } from '@/types';
 
 export const loginThunk = createAsyncThunk(
   'auth/login',
@@ -23,7 +18,7 @@ export const registerThunk = createAsyncThunk(
   async (payload: RegistrationData, { rejectWithValue }) => {
     try {
       return await authApi.register(payload);
-    } catch (e: any) {
+    } catch (e: unknown) {
       return rejectWithValue(e.message || 'Unknown error');
     }
   }

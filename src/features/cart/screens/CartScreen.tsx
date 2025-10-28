@@ -1,17 +1,8 @@
 import React, { useState } from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  ScrollView,
-  TextInput,
-  Image,
-} from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import AppHeader from '@/components/header/AppHeader';
 import { colors } from '@styles/colors';
-import { commonStyles } from '@styles/commonStyles';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import {
   removeItemFromCart,
@@ -20,7 +11,6 @@ import {
 } from '@/stores/features/cart/cartSlice';
 import { CartItem } from '@/types';
 import OliveDivider from '@/components/divider/OliveDivider';
-import Ionicons from '@expo/vector-icons/Ionicons';
 import CartItemRow from '@/features/cart/components/CartItemRow';
 import PromoCodeBar from '@/features/cart/components/PromoCodeBar';
 import OrderSummary from '@/features/cart/components/OrderSummary';
@@ -120,87 +110,7 @@ const styles = StyleSheet.create({
   cartItemsSection: {
     marginBottom: 32,
   },
-  cartItem: {
-    flexDirection: 'row',
-    marginBottom: 20,
-    paddingBottom: 20,
-    borderBottomWidth: 1,
-    borderBottomColor: colors.border,
-  },
-  itemImageContainer: {
-    marginRight: 16,
-  },
-  itemImage: {
-    width: 133,
-    height: 126,
-  },
-  itemImagePlaceholder: {
-    width: 80,
-    height: 80,
-    backgroundColor: colors.gray,
-    borderRadius: 8,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  headerRight: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  placeholderText: {
-    fontSize: 10,
-    color: colors.textLight,
-    textAlign: 'center',
-  },
-  itemDetails: {
-    flex: 1,
-  },
-  itemName: {
-    fontSize: 14,
-    fontWeight: '100',
-    color: colors.primary,
-    marginBottom: 8,
-    fontFamily: 'AGaramondPro-Italic',
-    textTransform: 'uppercase',
-    marginTop: 20,
-  },
-  itemPrice: {
-    fontSize: 14,
-    fontWeight: 'bold',
-    color: colors.primary,
-    marginBottom: 16,
-    fontFamily: 'AGaramondPro-BoldItalic',
-  },
-  quantityControls: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  removeButton: {
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 20,
-    borderWidth: 2,
-    borderColor: colors.primary,
-  },
-  removeButtonText: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: colors.primary,
-    fontFamily: 'Avenir-Roman',
-  },
-  quantityButton: {
-    // paddingHorizontal: 12,
-    // paddingVertical: 6,
-    // borderRadius: 30,
-    // borderWidth:2,
-    // borderColor: colors.primary,
-  },
-  quantityButtonText: {
-    fontSize: 14,
-    fontWeight: '500',
-    color: colors.primary,
-    fontFamily: 'Avenir-Roman',
-  },
+
   quantitySelector: {
     flexDirection: 'row',
     alignItems: 'center',

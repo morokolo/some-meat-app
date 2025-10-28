@@ -17,4 +17,5 @@ export const colors = {
   error: '#F44336',
   lightGray: '#EBEAE4',
   floral: '#979f8f',
+  piil: '#352329',
 };
