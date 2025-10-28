@@ -3,13 +3,13 @@
 
 A React Native e-commerce application built with Expo, TypeScript, and Redux Toolkit, featuring product listings, shopping cart functionality, and user authentication.
 
-<img width="1206" height="2622" alt="Simulator Screenshot - iPhone 16 Pro - 2025-10-28 at 16 48 18" src="https://github.com/user-attachments/assets/27f9e732-27b0-417f-93e9-673c66a0631b" />
-<img width="1206" height="2622" alt="Simulator Screenshot - iPhone 16 Pro - 2025-10-28 at 16 48 11" src="https://github.com/user-attachments/assets/4cc23d74-9467-4154-b130-6fbffd2dacf6" />
-<img width="1206" height="2622" alt="Simulator Screenshot - iPhone 16 Pro - 2025-10-28 at 16 48 03" src="https://github.com/user-attachments/assets/66bc0105-b58d-43be-bc68-be2100f55ca6" />
-<img width="1206" height="2622" alt="Simulator Screenshot - iPhone 16 Pro - 2025-10-28 at 16 48 00" src="https://github.com/user-attachments/assets/9125a12d-e53c-419c-8f76-7f29629441d6" />
-<img width="1206" height="2622" alt="Simulator Screenshot - iPhone 16 Pro - 2025-10-28 at 16 47 29" src="https://github.com/user-attachments/assets/2a920bb4-a20f-4e25-83fb-cda8e0a6c76f" />
-<img width="1206" height="2622" alt="Simulator Screenshot - iPhone 16 Pro - 2025-10-28 at 16 47 27" src="https://github.com/user-attachments/assets/a676d536-099f-40fc-9b0b-3c7d982f87c3" />
-<img width="1206" height="2622" alt="Simulator Screenshot - iPhone 16 Pro - 2025-10-28 at 16 47 23" src="https://github.com/user-attachments/assets/25707d50-5a1d-4020-b74f-2a27574ac530" />
+<img width="300" height="900" alt="Simulator Screenshot - iPhone 16 Pro - 2025-10-28 at 16 48 18" src="https://github.com/user-attachments/assets/27f9e732-27b0-417f-93e9-673c66a0631b" />
+<img width="300" height="900" alt="Simulator Screenshot - iPhone 16 Pro - 2025-10-28 at 16 48 11" src="https://github.com/user-attachments/assets/4cc23d74-9467-4154-b130-6fbffd2dacf6" />
+<img width="300" height="900" alt="Simulator Screenshot - iPhone 16 Pro - 2025-10-28 at 16 48 03" src="https://github.com/user-attachments/assets/66bc0105-b58d-43be-bc68-be2100f55ca6" />
+<img width="300" height="900" alt="Simulator Screenshot - iPhone 16 Pro - 2025-10-28 at 16 48 00" src="https://github.com/user-attachments/assets/9125a12d-e53c-419c-8f76-7f29629441d6" />
+<img width="300" height="900" alt="Simulator Screenshot - iPhone 16 Pro - 2025-10-28 at 16 47 29" src="https://github.com/user-attachments/assets/2a920bb4-a20f-4e25-83fb-cda8e0a6c76f" />
+<img width="300" height="900" alt="Simulator Screenshot - iPhone 16 Pro - 2025-10-28 at 16 47 27" src="https://github.com/user-attachments/assets/a676d536-099f-40fc-9b0b-3c7d982f87c3" />
+<img width="300" height="900" alt="Simulator Screenshot - iPhone 16 Pro - 2025-10-28 at 16 47 23" src="https://github.com/user-attachments/assets/25707d50-5a1d-4020-b74f-2a27574ac530" />
 
 
 
