@@ -40,14 +40,13 @@ yarn android
 - [x] **Empty state** - Friendly message when cart is empty
 - [x] **Real-time updates** - Cart state updates immediately on all operations
 
-#### **Products Listing** ✅ **FULLY IMPLEMENTED**
-- [x] **Product data fetching** - Integration with FakeStore API
-- [x] **Product display** - Grid layout with product cards
-- [x] **Category filtering** - Filter products by category (All, Electronics, Jewelry, etc.)
-- [x] **Product cards** - Image, title, price, and add-to-cart functionality
-- [x] **Loading states** - Proper loading indicators
-- [x] **Error handling** - Error states for failed API calls
-- [x] **Add to cart integration** - Cart icon on each product
+#### **Products Listing** ✅ **FULLY IMPLEMENTED (BASELINE)**
+- [x] **Product data fetching** - FakeStore API (unauthenticated), TheMealDB after login (categories + All)
+- [x] **Product display** - Grid layout with reusable `ProductCard`
+- [x] **List renderer** - Switched to `@shopify/flash-list`
+- [x] **Category filtering** - Chips with Title Case; “All” shows every meal
+- [x] **Loading & errors** - Indicators and error states
+- [x] **Add to cart** - Hooked to cart slice
 
 #### **Code Quality & Standards** ✅ **FULLY IMPLEMENTED**
 - [x] **TypeScript interfaces** - Comprehensive type system
@@ -63,74 +62,41 @@ yarn android
 ### ⚠️ **PARTIALLY IMPLEMENTED**
 
 #### **Authentication System** 🔄 **IN PROGRESS**
-- [x] **Redux auth slice** - Complete state management for auth
-- [x] **API functions** - Login and registration API calls
-- [x] **Type definitions** - User, AuthResponse, LoginCredentials interfaces
-- [ ] **Registration UI** - Form inputs and validation (Formik + Yup needed)
-- [ ] **Form validation** - Client-side validation with error messages
-- [ ] **Navigation flow** - Success/error navigation handling
-- [ ] **Keyboard UX** - KeyboardAvoidingView and ScrollView
-- [ ] **Error handling** - Toast/alert for submit errors
-- [ ] **Accessibility** - Screen reader support
+- [x] **Redux auth slice**
+- [x] **API functions**
+- [x] **Type definitions**
+- [x] **Registration UI** - Inputs + Sign up/Login link
+- [x] **Form validation** - Formik + Yup (errors, disabled submit when invalid)
+- [x] **Keyboard UX** - KeyboardAvoidingView + ScrollView
+- [x] **Error handling** - Alert on submit errors
+- [x] **Accessibility** - Labels/roles on inputs and buttons
 - [ ] **Unit tests** - Validation and form tests
 
 ---
 
 ### ❌ **NOT IMPLEMENTED**
 
-#### **Registration Screen** ❌ **NEEDS IMPLEMENTATION**
-- [ ] **UI Implementation**
-  - [ ] Add inputs: Name, Email, Phone, Password
-  - [ ] Add Sign Up button and "Have an account? Login" link
-  - [ ] Set proper keyboard types (email-address, phone-pad)
-- [ ] **Form validation**
-  - [ ] Install and configure Formik + Yup
-  - [ ] Create validation schema (required fields, email format, password min length)
-  - [ ] Show validation error messages
-  - [ ] Disable button when form is invalid
-- [ ] **Submit flow**
-  - [ ] Hook to auth action with loading states
-  - [ ] Navigate to Products screen on success
-  - [ ] Handle submit errors with user feedback
-- [ ] **Keyboard UX & layout**
-  - [ ] Wrap in KeyboardAvoidingView and ScrollView
-  - [ ] Ensure inputs never hidden when keyboard opens
-- [ ] **Error handling**
-  - [ ] Show toast/alert for submit errors
-  - [ ] Handle network errors gracefully
-- [ ] **Accessibility**
-  - [ ] Add accessible labels/placeholder for inputs
-  - [ ] Ensure button has accessible role
-  - [ ] Test with screen reader
-- [ ] **Unit tests**
-  - [ ] Test validation schema
-  - [ ] Test button disabled state
-  - [ ] Test form submission flow
+#### **Registration Screen** ✅ UI & Validation DONE — Tests Pending
+- [ ] **Unit tests**: schema, disabled state, submission flow
 
 #### **Enhanced Products Features** ❌ **NEEDS IMPLEMENTATION**
 - [ ] **Advanced list rendering**
-  - [ ] Replace FlatList with FlashList for better performance
-  - [ ] Implement estimatedItemSize and keyExtractor optimization
-  - [ ] Add smooth scrolling for 40+ items
+  - [x] Replace FlatList with FlashList
+  - [ ] Tune FlashList props for large datasets
+  - [ ] Provide 40+ demo items for perf testing
 - [ ] **Enhanced product cards**
-  - [ ] Create reusable ProductCard component
-  - [ ] Add category display
-  - [ ] Implement optimistic UI for add-to-cart
+  - [x] Reusable ProductCard component
+  - [ ] Add category display on card
+  - [ ] Optimistic UI/badge for add-to-cart
 - [ ] **Advanced filtering**
-  - [ ] Multi-select category chips component
-  - [ ] Toggle functionality for category selection
-  - [ ] Real-time filtering results
+  - [x] Category chips component
+  - [ ] Multi-select chips and combined filtering
 - [ ] **Pagination/Infinite scroll**
-  - [ ] Add onEndReached handler
-  - [ ] Implement loading indicator for fetch-more
-  - [ ] Append new items to existing list
+  - [ ] onEndReached and loading indicator
 - [ ] **Image handling**
-  - [ ] Implement lazy loading
-  - [ ] Add placeholder images
-  - [ ] Plan migration to react-native-fast-image
-- [ ] **Unit/Integration tests**
-  - [ ] Render tests for list and filter logic
-  - [ ] Test product card interactions
+  - [ ] Lazy loading/placeholders and note on react-native-fast-image
+- [ ] **Tests**
+  - [ ] List/filter and card interaction tests
 
 #### **Enhanced Cart Features** ❌ **NEEDS IMPLEMENTATION**
 - [ ] **Advanced cart UI**
@@ -154,12 +120,12 @@ yarn android
 - [ ] **Dependencies**
   - [ ] Install exact Redux libs: @reduxjs/toolkit@2.2.6, react-redux@9.1.2, redux@5.0.1
   - [ ] Install redux-logger@3.0.6, redux-persist@6.0.0, redux-thunk@3.1.0
-  - [ ] Install formik, yup for form validation
-  - [ ] Install @shopify/flash-list for performance
-  - [ ] Install @react-native-async-storage/async-storage
-  - [ ] Install react-native-vector-icons
+  - [x] Install formik, yup for form validation
+  - [x] Install @shopify/flash-list for performance
+  - [x] Install @react-native-async-storage/async-storage
+  - [x] Install react-native-vector-icons
 - [ ] **Redux enhancements**
-  - [ ] Create apiSlice with RTK Query
+  - [ ] Create apiSlice with RTK Query (incl. TheMealDB endpoints)
   - [ ] Wire redux-persist with AsyncStorage
   - [ ] Add redux-logger in dev only
 - [ ] **Environment & secrets**
@@ -201,11 +167,9 @@ yarn android
   - [ ] Test coverage reporting
 
 #### **API Integration** ❌ **NEEDS IMPLEMENTATION**
-- [ ] **ThemealDB integration**
-  - [ ] Add RTK Query service for ThemealDB
-  - [ ] Create endpoints: list by category, search, get details
-  - [ ] Map meal objects to Product type
-  - [ ] Toggle between demo and ThemealDB data
+- [x] **TheMealDB basic integration** (categories, All, filter by category)
+- [ ] RTK Query service: list/search/details + mapping to `Product`
+- [ ] Toggleable data source with 40+ demo items
 - [ ] **Payment integration**
   - [ ] Wire getEncryptedCardInfoToken mutation
   - [ ] Add types for GetEncryptedCardInfoTokenParams & Response
@@ -245,11 +209,16 @@ src/
 ├── api/
 │   ├── productsApi.ts        # Products API functions
 │   ├── cartApi.ts           # Cart API functions
-│   └── authApi.ts           # Authentication API functions
+│   ├── authApi.ts           # Authentication API functions
+│   └── mealApi.ts           # TheMealDB API helpers
 ├── features/
 │   ├── products/
 │   │   └── ProductsListingScreen.tsx
 │   ├── cart/
+│   │   ├── components/
+│   │   │   ├── CartItemRow.tsx
+│   │   │   ├── PromoCodeBar.tsx
+│   │   │   └── OrderSummary.tsx
 │   │   └── screens/
 │   │       └── CartScreen.tsx
 │   ├── home/
@@ -260,6 +229,10 @@ src/
 ├── navigation/
 │   ├── AppNavigator.tsx
 │   └── TabNavigator.tsx
+├── components/
+│   ├── header/AppHeader.tsx
+│   ├── product/ProductCard.tsx
+│   └── CategoryChips.tsx
 └── styles/
     ├── colors.ts
     └── commonStyles.ts
@@ -267,7 +240,7 @@ src/
 
 ### **Key Features Implemented**
 - ✅ **Complete Cart System** - Add, remove, increment, decrement with real-time totals
-- ✅ **Product Listing** - API integration, filtering, and display
+- ✅ **Product Listing** - API integration, chips filtering, FlashList, and reusable card
 - ✅ **TypeScript Standards** - Comprehensive type system and interfaces
 - ✅ **Redux State Management** - Proper state management patterns
 - ✅ **Navigation** - Basic navigation between screens
@@ -277,10 +250,10 @@ src/
 ## 🎯 **Next Priority Tasks**
 
 ### **High Priority**
-1. **Registration Form Implementation** - Complete the authentication flow
-2. **Form Validation** - Add Formik + Yup for proper form handling
-3. **Performance Optimization** - Implement FlashList for better list performance
-4. **Persistence** - Add redux-persist for cart persistence
+1. **Persistence** - Add redux-persist for cart
+2. **RTK Query** - apiSlice incl. TheMealDB endpoints
+3. **Product features** - Multi-select chips, pagination, optimistic add-to-cart
+4. **Tests** - Registration schema, cart reducers, list/filter
 
 ### **Medium Priority**
 5. **Testing** - Add unit and integration tests
@@ -299,11 +272,11 @@ src/
 | Feature Category | Progress | Status |
 |------------------|----------|---------|
 | **Cart System** | 100% | ✅ Complete |
-| **Products Listing** | 90% | ✅ Nearly Complete |
+| **Products Listing** | 70% | 🔄 In Progress |
 | **TypeScript Standards** | 100% | ✅ Complete |
 | **Redux Setup** | 100% | ✅ Complete |
-| **Authentication** | 40% | 🔄 In Progress |
-| **Form Validation** | 0% | ❌ Not Started |
+| **Authentication** | 60% | 🔄 In Progress |
+| **Form Validation** | 100% | ✅ Complete |
 | **Performance** | 30% | ❌ Needs Work |
 | **Testing** | 0% | ❌ Not Started |
 | **CI/CD** | 0% | ❌ Not Started |
@@ -337,5 +310,5 @@ src/
 
 ---
 
-**Last Updated**: December 2024  
-**Status**: Core functionality complete, authentication and advanced features in progress
+**Last Updated**: October 2025  
+**Status**: Core functionality improved; registration validation, FlashList, and refactors complete. Persistence, RTK Query, and tests pending.
