@@ -10,6 +10,7 @@ import { addItemToCart } from '@/stores/features/cart/cartSlice';
 import { Product, ProductCategory } from '@/types';
 import OliveDivider from '@/components/divider/OliveDivider';
 import ProductCard from '@/components/product/ProductCard';
+import CategoryChips from '@/components/CategoryChips';
 import Ionicons from '@expo/vector-icons/Ionicons';
 
 const ProductsListingScreen = () => {
@@ -84,27 +85,17 @@ const ProductsListingScreen = () => {
 
         {/* Category Tabs */}
         <View style={styles.categoryTabs}>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {categories.map(category => (
-              <TouchableOpacity
-                key={category}
-                style={[
-                  styles.categoryTab,
-                  selectedCategory === category && styles.categoryTabActive,
-                ]}
-                onPress={() => setSelectedCategory(category)}
-              >
-                <Text
-                  style={[
-                    styles.categoryTabText,
-                    selectedCategory === category && styles.categoryTabTextActive,
-                  ]}
-                >
-                  {formatCategoryLabel(category)}
-                </Text>
-              </TouchableOpacity>
-            ))}
-          </ScrollView>
+          <CategoryChips
+            categories={categories.map(formatCategoryLabel)}
+            selected={formatCategoryLabel(selectedCategory)}
+            onSelect={label => {
+              // Map back to raw value when meals API is used
+              const original = useMealsApi
+                ? (categories.find(c => formatCategoryLabel(c) === label) || label)
+                : label.toLowerCase();
+              setSelectedCategory(original);
+            }}
+          />
         </View>
 
         {/* Product Section Header */}

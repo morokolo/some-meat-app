@@ -21,6 +21,9 @@ import {
 import { CartItem } from '@/types';
 import OliveDivider from '@/components/divider/OliveDivider';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import CartItemRow from '@/features/cart/components/CartItemRow';
+import PromoCodeBar from '@/features/cart/components/PromoCodeBar';
+import OrderSummary from '@/features/cart/components/OrderSummary';
 
 const CartScreen = () => {
   const [promoCode, setPromoCode] = useState('');
@@ -40,53 +43,13 @@ const CartScreen = () => {
   };
 
   const renderCartItem = (item: CartItem) => (
-    <View key={item.id} style={styles.cartItem}>
-      <View style={styles.itemImageContainer}>
-        {item.image ? (
-          <Image
-            source={{ uri: item.image }}
-            style={styles.itemImage}
-            resizeMode="cover"
-          />
-        ) : (
-          <View style={styles.itemImagePlaceholder}>
-            <Text style={styles.placeholderText}>No Image</Text>
-          </View>
-        )}
-      </View>
-
-      <View style={styles.itemDetails}>
-        <Text style={styles.itemName}>{item.title}</Text>
-        <Text style={styles.itemPrice}>R {item.price}</Text>
-
-        <View style={styles.quantityControls}>
-          <TouchableOpacity
-            style={styles.removeButton}
-            onPress={() => handleRemoveItem(item.id)}
-          >
-            <Text style={styles.removeButtonText}>Remove</Text>
-          </TouchableOpacity>
-
-          <View style={styles.quantitySelector}>
-            <TouchableOpacity
-              style={styles.quantityButton}
-              onPress={() => handleDecrementQuantity(item.id)}
-            >
-              <Ionicons name='remove-circle-outline' size={40} color={colors.primary} />
-            </TouchableOpacity>
-
-            <Text style={styles.quantityText}>{item.quantity}</Text>
-
-            <TouchableOpacity
-              style={styles.quantityButton}
-              onPress={() => handleIncrementQuantity(item.id)}
-            >
-              <Ionicons name='add-circle-outline' size={40} color={colors.primary} />
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
-    </View>
+    <CartItemRow
+      key={item.id}
+      item={item}
+      onRemove={handleRemoveItem}
+      onDecrement={handleDecrementQuantity}
+      onIncrement={handleIncrementQuantity}
+    />
   );
 
   return (
@@ -116,47 +79,11 @@ const CartScreen = () => {
         </View>
 
         {/* Promo Code Section */}
-        <View style={styles.promoSection}>
-          <TextInput
-            style={styles.promoInput}
-            placeholder='Add your promo code'
-            value={promoCode}
-            onChangeText={setPromoCode}
-            placeholderTextColor={colors.primary}
-          />
-          <TouchableOpacity style={styles.applyButton}>
-            <Text style={styles.applyButtonText}>Apply</Text>
-          </TouchableOpacity>
-        </View>
+        <PromoCodeBar value={promoCode} onChange={setPromoCode} onApply={() => {}} />
         </View>
 
         {/* Order Summary */}
-        <View style={styles.orderSummary}>
-          <View style={styles.summaryRow}>
-            <Text style={styles.summaryLabel}>Sub total</Text>
-            <Text style={styles.summaryValue}>R {total.toFixed(2)}</Text>
-          </View>
-
-          <View style={styles.summaryRow}>
-            <Text style={styles.summaryLabel}>Delivery</Text>
-            <Text style={styles.summaryValue}>R 28.00</Text>
-          </View>
-
-          <View style={[styles.summaryRow, styles.totalRow]}>
-            <Text style={styles.totalLabel}>Total</Text>
-            <Text style={styles.totalValue}>R {(total + 28).toFixed(2)}</Text>
-          </View>
-
-            {/* Checkout Button */}
- <View style={{marginVertical:10}}>
- <TouchableOpacity style={styles.checkoutButton}>
-          <Text style={styles.checkoutButtonText}>Checkout</Text>
-        </TouchableOpacity>
- </View>
-       
-        
-    
-        </View>
+        <OrderSummary subtotal={total} deliveryFee={28} onCheckout={() => {}} />
       </ScrollView>
 
     </SafeAreaView>
