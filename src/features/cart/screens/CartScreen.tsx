@@ -8,7 +8,7 @@ import {
   TextInput,
   Image,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context';
 import { colors } from '@styles/colors';
 import { commonStyles } from '@styles/commonStyles';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
@@ -87,13 +87,18 @@ const CartScreen = () => {
     </View>
   );
 
+  const insets = useSafeAreaInsets();
   return (
-    <SafeAreaView style={styles.container}>
-      {/* Header */}
-      <View style={commonStyles.header}>
+    <View style={styles.container}>
+     {/* Header */}
+     <View style={[commonStyles.header, { paddingTop: insets.top }]}>
         <TouchableOpacity>
-          <Text style={commonStyles.backButton}>‹</Text>
+          <Text style={commonStyles.backButton}>‹ Back</Text>
         </TouchableOpacity>
+        <View style={styles.headerRight}>
+          <Text style={commonStyles.headerTitle}>Filter</Text>
+          
+        </View>
       </View>
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
@@ -162,7 +167,7 @@ const CartScreen = () => {
       </ScrollView>
 
     
-    </SafeAreaView>
+    </View>
   );
 };
 
@@ -207,6 +212,10 @@ backgroundColor: colors.lightGray
     backgroundColor: colors.gray,
     borderRadius: 8,
     justifyContent: 'center',
+    alignItems: 'center',
+  },
+  headerRight: {
+    flexDirection: 'row',
     alignItems: 'center',
   },
   placeholderText: {
@@ -311,7 +320,7 @@ backgroundColor: colors.lightGray
     fontFamily: 'Avenir-Roman',
   },
   orderSummary: {
-    marginBottom: 100,
+
     backgroundColor: colors.lightGray,
     padding:20
   },
@@ -328,6 +337,7 @@ backgroundColor: colors.lightGray
   summaryValue: {
     fontSize: 14,
     color: colors.primary,
+    fontWeight: '600'
   },
   totalRow: {
     borderTopWidth: 1,
