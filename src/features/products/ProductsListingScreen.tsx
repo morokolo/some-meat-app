@@ -13,13 +13,24 @@ import {
 import { colors } from '../../styles/colors';
 import { commonStyles } from '../../styles/commonStyles';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
-import { fetchAllProducts } from '@/stores/features/products/productsSlice';
+import { fetchAllProducts, fetchMealCategories, fetchMealsByCategory, fetchAllMeals } from '@/stores/features/products/productsSlice';
 import { addItemToCart } from '@/stores/features/cart/cartSlice';
 import { Product, ProductCategory } from '@/types';
+import OliveDivider from '@/components/divider/OliveDivider';
 
 const ProductsListingScreen = () => {
-  const [selectedCategory, setSelectedCategory] = useState(ProductCategory.ALL);
-  const categories = [
+  const formatCategoryLabel = (category: string) => {
+    return category
+      .toString()
+      .replace(/_/g, ' ')
+      .toLowerCase()
+      .replace(/\b\w/g, c => c.toUpperCase());
+  };
+  const [selectedCategory, setSelectedCategory] = useState<string>(ProductCategory.ALL);
+  const isAuthenticated = useAppSelector(state => state.registration.isAuthenticated);
+  const mealCategories = useAppSelector(state => state.products.mealCategories) || [];
+  const useMealsApi = useAppSelector(state => state.products.useMealsApi);
+  const categories = useMealsApi ? ['All', ...mealCategories] : [
     ProductCategory.ALL, 
     ProductCategory.ELECTRONICS, 
     ProductCategory.JEWELERY, 
@@ -31,16 +42,30 @@ const ProductsListingScreen = () => {
   const { items: cartItems } = useAppSelector(state => state.cart);
 
   useEffect(() => {
-    if (!products || !Array.isArray(products) || products.length === 0) {
+    if (isAuthenticated) {
+      dispatch(fetchMealCategories());
+      dispatch(fetchAllMeals());
+    } else if (!products || !Array.isArray(products) || products.length === 0) {
       dispatch(fetchAllProducts());
     }
-  }, [dispatch]);
+  }, [dispatch, isAuthenticated]);
+
+  useEffect(() => {
+    if (useMealsApi) {
+      if (!selectedCategory || selectedCategory === ProductCategory.ALL || selectedCategory === 'All') {
+        dispatch(fetchAllMeals());
+      } else {
+        dispatch(fetchMealsByCategory(selectedCategory));
+      }
+    }
+  }, [dispatch, useMealsApi, selectedCategory]);
 
   // Debug log
   console.log('Products from state:', products);
 
-  const filteredProducts =
-    selectedCategory === ProductCategory.ALL
+  const filteredProducts = useMealsApi
+    ? products
+    : selectedCategory === ProductCategory.ALL
       ? products
       : products.filter((prod: Product) => prod.category === selectedCategory);
 
@@ -55,24 +80,32 @@ const ProductsListingScreen = () => {
           <Image
             source={{ uri: item.image }}
             style={styles.productImageReal}
-            resizeMode="contain"
+            resizeMode="cover"
           />
         ) : (
           <View style={styles.productImagePlaceholder}>
             <Text style={styles.placeholderText}>No Image</Text>
           </View>
         )}
-        <TouchableOpacity 
-          style={styles.cartIcon}
-          onPress={() => handleAddToCart(item)}
-        >
-          <Text style={styles.cartIconText}>🛒</Text>
-        </TouchableOpacity>
+        
       </View>
-      <Text style={styles.productName} numberOfLines={1}>
-        {item.title}
-      </Text>
-      <Text style={styles.productPrice}>${item.price}</Text>
+      <View style={styles.productInfoRow}>
+        <View style={styles.productTitlePriceRow}>
+          <Text style={styles.productName} numberOfLines={1}>
+            {item.title}
+          </Text>
+         
+        </View>
+       
+        </View>
+        <View style={styles.sideBySideRow}>
+          <View>
+          <Text style={styles.productPrice}>R XXX.XX</Text>
+          </View>
+          <TouchableOpacity onPress={() => handleAddToCart(item)}>
+            <Text style={styles.cartIconText}>🛒</Text>
+          </TouchableOpacity>
+        </View>
     </View>
   );
 
@@ -81,7 +114,7 @@ const ProductsListingScreen = () => {
       {/* Header */}
       <View style={commonStyles.header}>
         <TouchableOpacity>
-          <Text style={commonStyles.backButton}>‹</Text>
+          <Text style={commonStyles.backButton}>‹ Back</Text>
         </TouchableOpacity>
         <View style={styles.headerRight}>
           <Text style={commonStyles.headerTitle}>Filter</Text>
@@ -92,8 +125,9 @@ const ProductsListingScreen = () => {
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         {/* Category Title */}
         <View style={styles.categorySection}>
-          <Text style={styles.categoryTitle}>Shop</Text>
+          <Text style={styles.categoryTitle}>Meat</Text>
         </View>
+        <OliveDivider style={{ marginBottom: 35 }} height={15} />
 
         {/* Category Tabs */}
         <View style={styles.categoryTabs}>
@@ -113,7 +147,7 @@ const ProductsListingScreen = () => {
                     selectedCategory === category && styles.categoryTabTextActive,
                   ]}
                 >
-                  {category}
+                  {formatCategoryLabel(category)}
                 </Text>
               </TouchableOpacity>
             ))}
@@ -124,9 +158,7 @@ const ProductsListingScreen = () => {
         <View style={styles.productSectionHeader}>
           <Text style={styles.basedOnSelection}>Based on your selection</Text>
           <Text style={styles.ourProducts}>Our products</Text>
-          <Text style={{ fontSize: 12, color: colors.textLight, marginTop: 4 }}>
-            Showing {filteredProducts?.length ?? 0} item(s)
-          </Text>
+          
         </View>
 
         {/* Loading, Error, Products Display */}
@@ -175,9 +207,10 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   categoryTitle: {
-    fontSize: 32,
+    fontSize: 40,
     fontWeight: 'bold',
-    color: colors.text,
+    color: colors.primary,
+    fontFamily: 'AGaramondPro-Bold',
   },
   categoryTabs: {
     marginBottom: 32,
@@ -186,34 +219,35 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     paddingVertical: 12,
     marginRight: 12,
-    borderRadius: 20,
-    backgroundColor: colors.gray,
+  
   },
   categoryTabActive: {
-    backgroundColor: colors.primary,
+    //backgroundColor: colors.primary,
   },
   categoryTabText: {
     fontSize: 16,
-    fontWeight: '500',
-    color: colors.textLight,
+    fontWeight: '200',
+    color: '#352329',
   },
   categoryTabTextActive: {
-    color: colors.white,
+    color: colors.primary,
+    fontWeight: '600',
   },
   productSectionHeader: {
     marginBottom: 24,
     alignItems: 'flex-start',
   },
   basedOnSelection: {
-    fontSize: 14,
-    color: colors.textLight,
+    fontSize: 12,
+    color: colors.primary,
     marginBottom: 4,
   },
   ourProducts: {
     fontSize: 28,
     fontWeight: 'bold',
-    color: colors.text,
-    fontFamily: 'serif',
+    color: colors.primary,
+    fontFamily: 'AGaramondPro-Bold',
+    marginVertical:5
   },
   productGrid: {
     marginBottom: 20,
@@ -221,17 +255,36 @@ const styles = StyleSheet.create({
   productRow: {
     justifyContent: 'space-between',
     marginBottom: 20,
+    columnGap: 5,
   },
   productCard: {
     flex: 1,
-    marginHorizontal: 4,
+    marginHorizontal: 6,
+  },
+  productInfoRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  productTitlePriceRow: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginRight: 8,
+  },
+  sideBySideRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 8,
   },
   productImageContainer: {
     position: 'relative',
     marginBottom: 12,
   },
   productImagePlaceholder: {
-    height: 120,
+    height: 163,
     backgroundColor: colors.gray,
     borderRadius: 8,
     justifyContent: 'center',
@@ -239,20 +292,18 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
   productImageReal: {
-    height: 120,
+    height: 163,
     backgroundColor: colors.white,
-    borderRadius: 8,
     marginBottom: 8,
     width: '100%',
+
   },
   placeholderText: {
     fontSize: 12,
     color: colors.textLight,
   },
   cartIcon: {
-    position: 'absolute',
-    bottom: 8,
-    right: 8,
+
     width: 32,
     height: 32,
     borderRadius: 16,
@@ -273,14 +324,16 @@ const styles = StyleSheet.create({
   },
   productName: {
     fontSize: 14,
-    fontWeight: '500',
-    color: colors.text,
+    fontWeight: '100',
+    color: colors.primary,
     marginBottom: 4,
   },
   productPrice: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: colors.text,
+    fontSize: 14,
+    color: colors.primary,
+    fontWeight: 900,
+    fontFamily: 'Avenir-Roman',
+  
   },
 });
 

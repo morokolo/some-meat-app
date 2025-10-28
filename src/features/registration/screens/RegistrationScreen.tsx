@@ -11,6 +11,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useNavigation } from '@react-navigation/native';
 import { colors } from '@styles/colors';
+import OliveDivider from '@/components/divider/OliveDivider';
 import { commonStyles } from '@styles/commonStyles';
 import { useAppDispatch, useAppSelector } from '@/stores/hooks';
 import { loginThunk } from '@/stores/features/registration/registrationSlice';
@@ -64,16 +65,27 @@ const RegistrationScreen = () => {
         <TouchableOpacity>
           <Text style={commonStyles.backButton}>‹</Text>
         </TouchableOpacity>
-        <Text style={commonStyles.headerTitle}>Explore app</Text>
+      </View>
+      <View style={{display: 'flex', flexDirection: 'row', justifyContent: 'flex-end', alignItems: 'flex-end', marginHorizontal:20}}>
+       
+        <Text style={{   fontSize: 16,
+
+    color: colors.text,
+    fontFamily: 'Avenir-Roman',
+    fontWeight: '100', alignContent: 'flex-end', alignSelf: 'flex-end'}}>Explore app</Text>
       </View>
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         {/* Welcome Section */}
         <View style={styles.welcomeSection}>
-          <Text style={styles.welcomeTitle}>Welcome to Pantry by Marble</Text>
-          <Text style={commonStyles.subtitle}>
-            Sign up for easy payment, collection and much more.
+        <Text style={styles.welcomeTitle}>Welcome to {'\n'}<Text>Pantry by Marble</Text></Text>
+       
+          <Text style={styles.subtitleAvenir}>
+            Sign up for easy payment, collection
+            {'\n'}
+            <Text>and much more.</Text>
           </Text>
+          <OliveDivider style={{ marginBottom: 40 }} height={15} />
         </View>
 
         {/* Form Fields */}
@@ -174,9 +186,9 @@ const RegistrationScreen = () => {
           )}
 
           <View style={styles.loginSection}>
-            <Text style={styles.loginText}>Have an account? </Text>
+            <Text style={styles.loginText} numberOfLines={1}>Have an account? </Text>
             <TouchableOpacity>
-              <Text style={commonStyles.linkText}>Login</Text>
+              <Text style={commonStyles.linkText} numberOfLines={1}>Login</Text>
             </TouchableOpacity>
           </View>
 
@@ -187,31 +199,31 @@ const RegistrationScreen = () => {
           </View>
 
           <TouchableOpacity
-            style={[commonStyles.button, commonStyles.secondaryButton]}
+            style={[commonStyles.button]}
             onPress={handleExploreApp}
             disabled={loading}
           >
             <Text
               style={[
                 commonStyles.buttonText,
-                commonStyles.secondaryButtonText,
               ]}
             >
               Explore our app
             </Text>
           </TouchableOpacity>
+          {/* Footer */}
+          <View>
+            <Text style={commonStyles.footerText}>
+              By signing up you agree to our,{' '}
+              <Text style={commonStyles.linkTextSecondary}>Terms</Text>,{' '}
+              <Text style={commonStyles.linkTextSecondary}>Data Policy</Text>, and{' '}
+              <Text style={commonStyles.linkTextSecondary}>Cookies Policy</Text>
+            </Text>
+          </View>
         </View>
       </ScrollView>
 
-      {/* Footer */}
-      <View style={commonStyles.footer}>
-        <Text style={commonStyles.footerText}>
-          By signing up you agree to our,{' '}
-          <Text style={commonStyles.linkText}>Terms</Text>,{' '}
-          <Text style={commonStyles.linkText}>Data Policy</Text>, and{' '}
-          <Text style={commonStyles.linkText}>Cookies Policy</Text>
-        </Text>
-      </View>
+      
     </SafeAreaView>
   );
 };
@@ -230,11 +242,17 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   welcomeTitle: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: colors.text,
+    fontSize: 40,
+    color: colors.textOlive,
     marginBottom: 12,
-    fontFamily: 'serif',
+    fontFamily: 'AGaramondPro-BoldItalic',
+  },
+  subtitleAvenir: {
+    fontSize: 16,
+    color: colors.textOlive,
+    marginBottom: 10,
+    fontFamily: 'Avenir-Roman',
+    fontWeight: '100'
   },
   formSection: {
     marginBottom: 40,
@@ -254,6 +272,7 @@ const styles = StyleSheet.create({
     height: 20,
     justifyContent: 'center',
     alignItems: 'center',
+    color:colors.primary
   },
   clearButtonText: {
     fontSize: 16,
@@ -279,12 +298,13 @@ const styles = StyleSheet.create({
   loginSection: {
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
-    marginBottom: 20,
+    alignItems: 'baseline',
+    flexWrap: 'nowrap',
   },
   loginText: {
-    fontSize: 16,
-    color: colors.textLight,
+    fontSize: 14,
+    color: colors.primary,
+    fontFamily: 'Avenir-Roman',
   },
 });
 

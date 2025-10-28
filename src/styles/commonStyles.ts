@@ -11,14 +11,13 @@ export const commonStyles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 20,
-    paddingTop: 50,
-    paddingBottom: 20,
     backgroundColor: colors.background,
   },
   headerTitle: {
     fontSize: 18,
     fontWeight: '600',
     color: colors.text,
+    fontFamily: 'Avenir-Roman',
   },
   backButton: {
     fontSize: 24,
@@ -37,22 +36,23 @@ export const commonStyles = StyleSheet.create({
     marginBottom: 32,
   },
   inputContainer: {
-    marginBottom: 20,
+    marginBottom: 10,
   },
   inputLabel: {
     fontSize: 16,
-    fontWeight: '500',
-    color: colors.text,
-    marginBottom: 8,
+    fontWeight: '100',
+    color: colors.primary,
+    fontFamily: 'Avenir-Roman',
   },
   input: {
-    borderWidth: 1,
-    borderColor: colors.border,
-    borderRadius: 8,
-    paddingHorizontal: 16,
+    borderWidth: 0,
+    borderBottomWidth: 1,
+    borderColor: colors.primary,
+   
     paddingVertical: 12,
-    fontSize: 16,
-    color: colors.text,
+    fontSize: 18,
+    color: colors.primary,
+    fontFamily: 'AGaramondPro-BoldItalic',
     backgroundColor: colors.white,
   },
   inputFocused: {
@@ -60,8 +60,9 @@ export const commonStyles = StyleSheet.create({
   },
   button: {
     backgroundColor: colors.primary,
-    borderRadius: 8,
-    paddingVertical: 16,
+    borderRadius: 40,
+    paddingVertical: 20,
+    paddingHorizontal: 25,
     alignItems: 'center',
     marginBottom: 16,
   },
@@ -69,6 +70,7 @@ export const commonStyles = StyleSheet.create({
     color: colors.white,
     fontSize: 16,
     fontWeight: '600',
+    fontFamily: 'Avenir-Roman',
   },
   secondaryButton: {
     backgroundColor: colors.white,
@@ -80,7 +82,12 @@ export const commonStyles = StyleSheet.create({
   },
   linkText: {
     color: colors.primary,
-    fontSize: 16,
+    fontSize: 14,
+    fontWeight: '500',
+  },
+  linkTextSecondary: {
+    color: colors.primary,
+    fontSize: 12,
     fontWeight: '500',
   },
   divider: {
@@ -91,19 +98,15 @@ export const commonStyles = StyleSheet.create({
   dividerLine: {
     flex: 1,
     height: 1,
-    backgroundColor: colors.border,
+    backgroundColor: colors.primary,
   },
   dividerText: {
     marginHorizontal: 16,
-    color: colors.textLight,
+    color: colors.primary,
     fontSize: 14,
+    fontFamily: 'Avenir-Roman',
   },
-  footer: {
-    position: 'absolute',
-    bottom: 20,
-    left: 20,
-    right: 20,
-  },
+ 
   footerText: {
     fontSize: 12,
     color: colors.textLight,

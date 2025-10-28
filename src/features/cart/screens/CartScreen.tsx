@@ -18,6 +18,7 @@ import {
   decrementQuantity 
 } from '@/stores/features/cart/cartSlice';
 import { CartItem } from '@/types';
+import OliveDivider from '@/components/divider/OliveDivider';
 
 const CartScreen = () => {
   const [promoCode, setPromoCode] = useState('');
@@ -43,7 +44,7 @@ const CartScreen = () => {
           <Image
             source={{ uri: item.image }}
             style={styles.itemImage}
-            resizeMode="contain"
+            resizeMode="cover"
           />
         ) : (
           <View style={styles.itemImagePlaceholder}>
@@ -54,7 +55,7 @@ const CartScreen = () => {
 
       <View style={styles.itemDetails}>
         <Text style={styles.itemName}>{item.title}</Text>
-        <Text style={styles.itemPrice}>${item.price}</Text>
+        <Text style={styles.itemPrice}>R {item.price}</Text>
 
         <View style={styles.quantityControls}>
           <TouchableOpacity
@@ -97,9 +98,12 @@ const CartScreen = () => {
 
       <ScrollView style={styles.content} showsVerticalScrollIndicator={false}>
         {/* Cart Title */}
+        <View style={{paddingHorizontal:20, backgroundColor: colors.background}}>
         <View style={styles.titleSection}>
           <Text style={styles.cartTitle}>Cart</Text>
+          <OliveDivider style={{ marginBottom: 0, marginTop:10 }} height={15} />
         </View>
+       
 
         {/* Cart Items */}
         <View style={styles.cartItemsSection}>
@@ -120,38 +124,44 @@ const CartScreen = () => {
             placeholder='Add your promo code'
             value={promoCode}
             onChangeText={setPromoCode}
-            placeholderTextColor={colors.placeholder}
+            placeholderTextColor={colors.primary}
           />
           <TouchableOpacity style={styles.applyButton}>
             <Text style={styles.applyButtonText}>Apply</Text>
           </TouchableOpacity>
+        </View>
         </View>
 
         {/* Order Summary */}
         <View style={styles.orderSummary}>
           <View style={styles.summaryRow}>
             <Text style={styles.summaryLabel}>Sub total</Text>
-            <Text style={styles.summaryValue}>${total.toFixed(2)}</Text>
+            <Text style={styles.summaryValue}>R {total.toFixed(2)}</Text>
           </View>
 
           <View style={styles.summaryRow}>
             <Text style={styles.summaryLabel}>Delivery</Text>
-            <Text style={styles.summaryValue}>$28.00</Text>
+            <Text style={styles.summaryValue}>R 28.00</Text>
           </View>
 
           <View style={[styles.summaryRow, styles.totalRow]}>
             <Text style={styles.totalLabel}>Total</Text>
-            <Text style={styles.totalValue}>${(total + 28).toFixed(2)}</Text>
+            <Text style={styles.totalValue}>R {(total + 28).toFixed(2)}</Text>
           </View>
+
+            {/* Checkout Button */}
+ <View style={{marginVertical:10}}>
+ <TouchableOpacity style={styles.checkoutButton}>
+          <Text style={styles.checkoutButtonText}>Checkout</Text>
+        </TouchableOpacity>
+ </View>
+       
+        
+    
         </View>
       </ScrollView>
 
-      {/* Checkout Button */}
-      <View style={styles.checkoutSection}>
-        <TouchableOpacity style={styles.checkoutButton}>
-          <Text style={styles.checkoutButtonText}>Checkout</Text>
-        </TouchableOpacity>
-      </View>
+    
     </SafeAreaView>
   );
 };
@@ -163,17 +173,16 @@ const styles = StyleSheet.create({
   },
   content: {
     flex: 1,
-    paddingHorizontal: 20,
+backgroundColor: colors.lightGray
   },
   titleSection: {
     marginTop: 20,
     marginBottom: 32,
   },
   cartTitle: {
-    fontSize: 32,
-    fontWeight: 'bold',
-    color: colors.text,
-    fontFamily: 'serif',
+    fontSize: 40,
+    color: colors.primary,
+    fontFamily: 'AGaramondPro-BoldItalic',
   },
   cartItemsSection: {
     marginBottom: 32,
@@ -189,9 +198,8 @@ const styles = StyleSheet.create({
     marginRight: 16,
   },
   itemImage: {
-    width: 80,
-    height: 80,
-    borderRadius: 8,
+    width: 133,
+    height: 126,
   },
   itemImagePlaceholder: {
     width: 80,
@@ -210,16 +218,20 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   itemName: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: colors.text,
+    fontSize: 14,
+    fontWeight: '100',
+    color: colors.primary,
     marginBottom: 8,
+    fontFamily: 'AGaramondPro-Italic',
+    textTransform: 'uppercase',
+    marginTop:20
   },
   itemPrice: {
-    fontSize: 18,
+    fontSize: 14,
     fontWeight: 'bold',
-    color: colors.text,
+    color: colors.primary,
     marginBottom: 16,
+    fontFamily: 'AGaramondPro-BoldItalic',
   },
   quantityControls: {
     flexDirection: 'row',
@@ -229,24 +241,31 @@ const styles = StyleSheet.create({
   removeButton: {
     paddingHorizontal: 12,
     paddingVertical: 6,
-    borderRadius: 4,
-    backgroundColor: colors.error || '#ff4444',
+    borderRadius: 20,
+ borderWidth:2,
+ borderColor: colors.primary,
+
   },
   removeButtonText: {
     fontSize: 14,
     fontWeight: '500',
-    color: colors.white,
+    color: colors.primary,
+    fontFamily: 'Avenir-Roman',
+   
   },
   quantityButton: {
     paddingHorizontal: 12,
     paddingVertical: 6,
-    borderRadius: 4,
-    backgroundColor: colors.gray,
+    borderRadius: 30,
+    borderWidth:2,
+    borderColor: colors.primary,
   },
   quantityButtonText: {
     fontSize: 14,
     fontWeight: '500',
-    color: colors.text,
+    color: colors.primary,
+    fontFamily: 'Avenir-Roman',
+    
   },
   quantitySelector: {
     flexDirection: 'row',
@@ -254,41 +273,47 @@ const styles = StyleSheet.create({
   },
   quantityText: {
     fontSize: 16,
-    fontWeight: 'bold',
-    color: colors.text,
+    color: colors.primary,
+    fontFamily: 'AGaramondPro-Bold',
     marginHorizontal: 16,
   },
   promoSection: {
     flexDirection: 'row',
     marginBottom: 32,
+    borderWidth:2,
+    borderColor: colors.primary,
+    borderRadius: 30,
+    padding:4
   },
   promoInput: {
     flex: 1,
-    borderWidth: 1,
-    borderColor: colors.border,
-    borderRadius: 8,
+    borderRightWidth: 1,
+    borderRightColor: colors.primary,
     paddingHorizontal: 16,
-    paddingVertical: 12,
-    fontSize: 16,
-    color: colors.text,
-    backgroundColor: colors.white,
+    fontSize: 14,
+    color: colors.primary,
+    // backgroundColor: colors.white,
     marginRight: 12,
+    fontFamily: 'Avenir-Roman',
   },
   applyButton: {
-    backgroundColor: colors.primary,
+    // backgroundColor: colors.primary,
     paddingHorizontal: 20,
-    paddingVertical: 12,
-    borderRadius: 8,
+    paddingVertical: 8,
+    // borderRadius: 8,
     justifyContent: 'center',
     alignItems: 'center',
   },
   applyButtonText: {
-    color: colors.white,
-    fontSize: 16,
+    color: colors.primary,
+    fontSize: 14,
     fontWeight: '600',
+    fontFamily: 'Avenir-Roman',
   },
   orderSummary: {
     marginBottom: 100,
+    backgroundColor: colors.lightGray,
+    padding:20
   },
   summaryRow: {
     flexDirection: 'row',
@@ -297,12 +322,12 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   summaryLabel: {
-    fontSize: 16,
-    color: colors.textLight,
+    fontSize: 14,
+    color: colors.primary,
   },
   summaryValue: {
-    fontSize: 16,
-    color: colors.text,
+    fontSize: 14,
+    color: colors.primary,
   },
   totalRow: {
     borderTopWidth: 1,
@@ -312,13 +337,14 @@ const styles = StyleSheet.create({
   },
   totalLabel: {
     fontSize: 18,
-    fontWeight: 'bold',
-    color: colors.text,
+    color: colors.primary,
+    fontFamily: 'AGaramondPro-Bold',
   },
   totalValue: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: colors.text,
+    color: colors.primary,
+    fontFamily: 'AGaramondPro-Bold',
   },
   checkoutSection: {
     paddingHorizontal: 20,
@@ -327,14 +353,16 @@ const styles = StyleSheet.create({
   },
   checkoutButton: {
     backgroundColor: colors.primary,
-    borderRadius: 8,
-    paddingVertical: 16,
+    borderRadius: 40,
+    paddingVertical: 20,
+    paddingHorizontal: 25,
     alignItems: 'center',
+    marginBottom: 16,
   },
   checkoutButtonText: {
     color: colors.white,
     fontSize: 18,
-    fontWeight: '600',
+    fontFamily: 'Avenir-Roman',
   },
   emptyCart: {
     alignItems: 'center',

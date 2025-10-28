@@ -82,6 +82,9 @@ export interface BaseState {
 export interface ProductsState extends BaseState {
   items: Product[];
   selectedProduct: Product | null;
+  // When using TheMealDB API
+  mealCategories?: string[];
+  useMealsApi?: boolean;
 }
 
 /**
